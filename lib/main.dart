@@ -7,6 +7,7 @@ import 'services/localization_service.dart';
 import 'services/theme_service.dart';
 
 Future<void> initApp() async {
+  setup();
   final themeService = locator<ThemeService>();
   await themeService.init();
   final localizationService = locator<LocalizationService>();
