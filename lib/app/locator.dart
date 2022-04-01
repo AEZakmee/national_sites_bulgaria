@@ -6,6 +6,7 @@ import '../services/theme_service.dart';
 final locator = GetIt.instance;
 
 void setup() {
-  locator.registerLazySingleton<ThemeService>(ThemeService.new);
-  locator.registerLazySingleton<LocalizationService>(LocalizationService.new);
+  locator
+    ..registerLazySingleton<ThemeService>(ThemeService.new)
+    ..registerLazySingleton<LocalizationService>(LocalizationService.new);
 }
