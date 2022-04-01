@@ -1,3 +1,24 @@
 {
-"hello" : "ЗДР как си"
+"welcomeLabel" : "Добре дошли в Опознай България",
+"welcomeDescription" : "If you like traveling this is the place for you!\nIn here you will learn about the Bulgarian culture. Explore the nature and visit the hundred national sites of Bulgaria.",
+"emailHint" : "Въведете имейл",
+"emailLabel" : "Имейл",
+"passwordHint" : "Въведете парола",
+"passwordLabel" : "Парола",
+"usernameHint" : "Потребителско име",
+"usernameLabel" : "Потребитеслко име",
+"emailInUse" : "Въведеният имейл вече се използва",
+"emailInvalid" : "Entered Email is not valid",
+"invalidOperation" : "Invalid operation",
+"weakPassword" : "Entered password is too weak",
+"userNotFound" : "Wrong email or password",
+"emptyFields" : "Please enter all the required information",
+"wrongPass" : "Entered password is wrong",
+"somethingWentWrong" : "Something went wrong please try again",
+"enterValidEmail" : "Enter a valid email address",
+"passwordMustContain" : "Password should contain a digit and a letter",
+"passwordMustLong" : "Password should be at least 8 characters long",
+"usernameMustBe" : "Username should be at least 3 characters",
+"login" : "Вход",
+"signup" : "Регистрация"
 }

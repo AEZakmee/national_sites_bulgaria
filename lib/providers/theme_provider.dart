@@ -7,6 +7,8 @@ import '../services/theme_service.dart';
 class ThemeProvider extends ChangeNotifier {
   final themeService = locator<ThemeService>();
 
+  bool get isDarkTheme => themeService.brightness == Brightness.dark;
+
   Future<void> switchTheme() async {
     switch (themeService.brightness) {
       case Brightness.light:

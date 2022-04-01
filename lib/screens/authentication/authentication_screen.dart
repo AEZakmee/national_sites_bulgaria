@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'authentication_viewmodel.dart';
+import 'components/body.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   const AuthenticationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: Provider(
+        body: ChangeNotifierProvider(
           create: (_) => AuthVM(),
-          child: Center(
-            child: Text('asd'),
+          child: const Scaffold(
+            body: Body(),
           ),
         ),
       );

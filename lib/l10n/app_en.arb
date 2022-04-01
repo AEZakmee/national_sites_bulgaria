@@ -1,3 +1,24 @@
 {
-"hello" : "HELLOOOO BACE"
+"welcomeLabel" : "Welcome to Conquer Bulgaria",
+"welcomeDescription" : "If you like traveling this is the place for you! In here you will learn about the Bulgarian culture.\nExplore the nature and visit the hundred national sites of Bulgaria.",
+"emailHint" : "Enter Email",
+"emailLabel" : "Email",
+"passwordHint" : "Enter Password",
+"passwordLabel" : "Password",
+"usernameHint" : "Enter Username",
+"usernameLabel" : "Username",
+"emailInUse" : "Entered Email is already in use",
+"emailInvalid" : "Entered Email is not valid",
+"invalidOperation" : "Invalid operation",
+"weakPassword" : "Entered password is too weak",
+"userNotFound" : "Wrong email or password",
+"emptyFields" : "Please enter all the required information",
+"wrongPass" : "Entered password is wrong",
+"somethingWentWrong" : "Something went wrong please try again",
+"enterValidEmail" : "Enter a valid email address",
+"passwordMustContain" : "Password should contain a digit and a letter",
+"passwordMustLong" : "Password should be at least 8 characters long",
+"usernameMustBe" : "Username should be at least 3 characters",
+"login" : "LOGIN",
+"signup" : "SIGNUP"
 }

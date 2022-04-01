@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
+import '../../utilitiies/constants.dart';
+import '../authentication/components/arrow_button.dart';
 import 'splash_viewmodel.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -48,15 +51,16 @@ class _SplashScreenAnimationState extends State<SplashScreenAnimation>
     final screenHeight = MediaQuery.of(context).size.height;
     final showWelcomeScreen = context.watch<SplashVM>().userIsLogged;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Column(
         children: [
           Flexible(
             child: AnimatedContainer(
               duration: const Duration(seconds: 1),
-              height: showWelcomeScreen ? screenHeight / 1.9 : screenHeight,
+              height: screenHeight,
               decoration: BoxDecoration(
-                color: Colors.black87,
+                gradient: kSplashScreenGradient(context),
+                boxShadow: [kBoxShadow(context)],
                 borderRadius: showWelcomeScreen
                     ? const BorderRadius.only(
                         bottomRight: Radius.circular(30),
@@ -104,41 +108,32 @@ class _BottomPart extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 30.0),
-              const Text(
-                'Welcome to Conquer Bulgaria',
-                style: TextStyle(
-                    fontSize: 27.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87),
+              Text(
+                AppLocalizations.of(context)!.welcomeLabel,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(height: 30.0),
-              const Text(
-                'If you like traveling this is the place for you!\nIn here you will learn about the Bulgarian culture.\n'
-                'Explore the nature and visit the hundred national sites of Bulgaria.',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black87,
-                  height: 1.5,
-                ),
+              Text(
+                AppLocalizations.of(context)!.welcomeDescription,
+                style: Theme.of(context).textTheme.labelLarge,
               ),
               const SizedBox(height: 30.0),
               Align(
-                alignment: Alignment.centerRight,
+                alignment: Alignment.bottomRight,
                 child: Container(
-                  height: 85.0,
-                  width: 85.0,
+                  height: 115,
+                  width: 115,
                   decoration: BoxDecoration(
+                    color: Theme.of(context).backgroundColor,
                     shape: BoxShape.circle,
-                    border: Border.all(color: Colors.black87, width: 2.0),
                   ),
-                  child: GestureDetector(
-                    onTap: () => context
-                        .read<SplashVM>()
-                        .goToAuthenticationScreen(context),
-                    child: const Icon(
-                      Icons.chevron_right,
-                      size: 50.0,
-                      color: Colors.black87,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: ArrowButton(
+                      onPress: () => context
+                          .read<SplashVM>()
+                          .goToAuthenticationScreen(context),
+                      isLoading: false,
                     ),
                   ),
                 ),
