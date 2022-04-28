@@ -1,12 +1,11 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
 
+import '../../../app/router.dart';
 import '../../../providers/localization_provider.dart';
 import '../../../providers/theme_provider.dart';
 import '../../../utilitiies/constants.dart';
@@ -119,10 +118,16 @@ class _BodyState extends State<Body> {
                       child: ArrowButton(
                         onPress: () async {
                           if (!prov.loginClicked) {
-                            final success = await Provider.of<AuthVM>(context,
-                                    listen: false)
-                                .signUp();
-                            log(success.toString());
+                            final success = await Provider.of<AuthVM>(
+                              context,
+                              listen: false,
+                            ).signUp();
+
+                            if (success) {
+                              await Navigator.of(context).pushReplacementNamed(
+                                Routes.primary,
+                              );
+                            }
                           }
                         },
                         isLoading: context.watch<AuthVM>().isLoading,

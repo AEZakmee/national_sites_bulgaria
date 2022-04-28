@@ -31,7 +31,7 @@ class _SplashScreenAnimationState extends State<SplashScreenAnimation>
   @override
   void initState() {
     super.initState();
-    context.read<SplashVM>().checkUser();
+    context.read<SplashVM>().checkUser(context);
     _animController = AnimationController(vsync: this);
     _animController.addListener(() {
       if (_animController.value > 0.5) {

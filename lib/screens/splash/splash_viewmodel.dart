@@ -1,17 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../app/router.dart';
 
 class SplashVM extends ChangeNotifier {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   bool userIsLogged = false;
 
-  Future<void> checkUser() async {
+  Future checkUser(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 3));
-    userIsLogged = true;
+    if (_auth.currentUser != null) {
+      return Navigator.of(context).pushReplacementNamed(Routes.primary);
+    } else {
+      userIsLogged = true;
+    }
     notifyListeners();
   }
 
-  Future<void> goToAuthenticationScreen(BuildContext context) async {
-    await Navigator.of(context).popAndPushNamed(Routes.auth);
+  void goToAuthenticationScreen(BuildContext context) {
+    Navigator.of(context).pushReplacementNamed(Routes.auth);
   }
 }

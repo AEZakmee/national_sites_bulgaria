@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import '../screens/authentication/authentication_screen.dart';
+import '../screens/primary/primary_screen.dart';
 import '../screens/splash/splash_screen.dart';
 
 class Routes {
   static const String splash = '/';
   static const String auth = '/auth';
+  static const String primary = '/primary';
 }
 
 class AppRouter {
@@ -15,24 +17,13 @@ class AppRouter {
           builder: (_) => const SplashScreen(),
         );
       case Routes.auth:
-        return PageRouteBuilder(
-            pageBuilder: (_, __, ___) => const AuthenticationScreen(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              const begin = Offset(1.0, 0.0);
-              const end = Offset.zero;
-              const curve = Curves.ease;
-
-              final tween = Tween(begin: begin, end: end).chain(
-                CurveTween(curve: curve),
-              );
-
-              return SlideTransition(
-                position: animation.drive(tween),
-                child: child,
-              );
-            },
-            transitionDuration: const Duration(milliseconds: 500));
+        return MaterialPageRoute(
+          builder: (_) => const AuthenticationScreen(),
+        );
+      case Routes.primary:
+        return MaterialPageRoute(
+          builder: (_) => const PrimaryScreen(),
+        );
       default:
         throw const FormatException('Route not found! Check routes again!');
     }

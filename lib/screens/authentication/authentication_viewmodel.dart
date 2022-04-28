@@ -1,16 +1,20 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../app/locator.dart';
+import '../../data/models/app_user.dart';
+import '../../services/firestore_service.dart';
 
 final RegExp regExpEmail = RegExp(
     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
 final RegExp regExpPassword = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
 
 class AuthVM extends ChangeNotifier {
-  // final FirebaseAuth _auth = FirebaseAuth.instance;
-  // final FirestoreService _firestoreService = FirestoreService();
-  //Constructor
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FireStoreService _fireStoreService = locator<FireStoreService>();
 
   AuthVM() {
     _loginType = LoginType.signUp;
@@ -194,40 +198,52 @@ class AuthVM extends ChangeNotifier {
   }
 
   Future<bool> _signUpEmail() async {
-    // try {
-    //   isLoading = true;
-    //   UserCredential authResult = await _auth.createUserWithEmailAndPassword(
-    //       email: _email.data, password: _password.data);
-    //   if (authResult != null) {
-    //     var user = AppUser(
-    //         email: authResult.user.email,
-    //         userId: authResult.user.uid,
-    //         name: _username.data,
-    //         role: Roles.User);
-    //     await _firestoreService.addUser(user);
-    //     return true;
-    //   }
-    // } on FirebaseAuthException catch (error) {
-    //   _authError(error: error.code);
-    // } on Exception catch (error) {
-    //   print("Something went wrong: " + error.toString());
-    // }
+    try {
+      isLoading = true;
+
+      final UserCredential authResult =
+          await _auth.createUserWithEmailAndPassword(
+        email: _email.data,
+        password: _password.data,
+      );
+
+      final newUser = _auth.currentUser;
+      if (newUser != null) {
+        final user = AppUser(
+            uniqueID: authResult.user!.uid,
+            email: authResult.user!.email!,
+            username: _username.data,
+            picture: '',
+            places: [],
+            totalPlaces: 0,
+            votedPlaces: []);
+
+        await _fireStoreService.addUser(user);
+        return true;
+      }
+    } on FirebaseAuthException catch (error) {
+      _authError(error: error.code);
+    } on Exception catch (error) {
+      log('Something went wrong on login: $error');
+    }
     return false;
   }
 
   Future<bool> _loginEmail() async {
-    // try {
-    //   if (_email.data.isEmpty || _password.data.isEmpty) {
-    //     _authError(error: 'empty-fields');
-    //   } else {
-    //     isLoading = true;
-    //     await _auth.signInWithEmailAndPassword(
-    //         email: _email.data, password: _password.data);
-    //     return true;
-    //   }
-    // } on FirebaseAuthException catch (error) {
-    //   _authError(error: error.code);
-    // }
+    try {
+      if (_email.data.isEmpty || _password.data.isEmpty) {
+        _authError(error: 'empty-fields');
+      } else {
+        isLoading = true;
+        await _auth.signInWithEmailAndPassword(
+          email: _email.data,
+          password: _password.data,
+        );
+        return true;
+      }
+    } on FirebaseAuthException catch (error) {
+      _authError(error: error.code);
+    }
     return false;
   }
 
