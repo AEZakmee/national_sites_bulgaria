@@ -6,9 +6,9 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
 
 import '../../../app/router.dart';
-import '../../../providers/localization_provider.dart';
 import '../../../providers/theme_provider.dart';
 import '../../../utilitiies/constants.dart';
+import '../../../widgets/locale_switcher.dart';
 import '../authentication_viewmodel.dart';
 import 'arrow_button.dart';
 import 'input_fields.dart';
@@ -185,28 +185,4 @@ class CustomDayNightSwitcher extends StatelessWidget {
       dayBackgroundColor: theme.secondaryHeaderColor,
     );
   }
-}
-
-class LocaleSwitcher extends StatelessWidget {
-  const LocaleSwitcher({
-    required this.name,
-    required this.locale,
-    Key? key,
-  }) : super(key: key);
-  final String name;
-  final Locale locale;
-
-  @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: InkWell(
-          onTap: () => context
-              .read<LocalizationProvider>()
-              .setLanguage(locale.languageCode),
-          child: Text(
-            name,
-            style: Theme.of(context).textTheme.labelMedium,
-          ),
-        ),
-      );
 }
