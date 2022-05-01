@@ -1,15 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_switch/flutter_switch.dart';
-import 'package:provider/provider.dart';
+part of 'primary_screen.dart';
 
-import '../../providers/localization_provider.dart';
-import '../../providers/theme_provider.dart';
-import '../../widgets/page_transition.dart';
-import 'drawer_viewmodel.dart';
-import 'primary_viewmodel.dart';
-
-class MainDrawer extends StatelessWidget {
-  const MainDrawer({
+class _MainDrawer extends StatelessWidget {
+  const _MainDrawer({
     Key? key,
   }) : super(key: key);
 

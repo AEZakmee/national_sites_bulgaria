@@ -7,7 +7,7 @@ import '../providers/localization_provider.dart';
 import '../providers/theme_provider.dart';
 import 'router.dart';
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget  {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {

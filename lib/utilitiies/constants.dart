@@ -20,18 +20,17 @@ BoxShadow kBoxShadow(context) => BoxShadow(
       spreadRadius: 5,
     );
 
-//Add products page
-OutlineInputBorder kOutlineBorderAdd(context) => OutlineInputBorder(
-      borderRadius: kInputFiledBorderRadiusAdd,
-      borderSide: BorderSide(color: Theme.of(context).accentColor),
+BoxShadow kSearchFieldShadow(context) => BoxShadow(
+      offset: const Offset(3, 3),
+      blurRadius: 10,
+      color: Theme.of(context).dividerColor.withOpacity(0.7),
+      spreadRadius: -1,
     );
-OutlineInputBorder kEnabledOutlineBorderAdd(context) => OutlineInputBorder(
-      borderRadius: kInputFiledBorderRadiusAdd,
-      borderSide: BorderSide(color: Theme.of(context).accentColor),
-    );
-OutlineInputBorder kErrorOutlineBorderAdd(context) => OutlineInputBorder(
-      borderRadius: kInputFiledBorderRadiusAdd,
-      borderSide: BorderSide(color: Theme.of(context).errorColor),
+
+OutlineInputBorder kTextFieldBorder() => OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.transparent),
+      gapPadding: 10,
+      borderRadius: BorderRadius.circular(5),
     );
 
 LinearGradient kLoginBackgroundGradient(context) => LinearGradient(
@@ -50,6 +49,15 @@ LinearGradient kSplashScreenGradient(context) => LinearGradient(
       ],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
+    );
+
+LinearGradient kOverImageGradient() => const LinearGradient(
+      colors: [
+        Colors.black87,
+        Colors.transparent,
+      ],
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
     );
 
 LinearGradient kArrowButtonGradient(context) => LinearGradient(

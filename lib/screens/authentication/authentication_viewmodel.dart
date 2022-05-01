@@ -5,7 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../app/locator.dart';
+import '../../app/router.dart';
 import '../../data/models/app_user.dart';
+import '../../data/sites_repo.dart';
 import '../../services/firestore_service.dart';
 
 final RegExp regExpEmail = RegExp(
@@ -15,6 +17,7 @@ final RegExp regExpPassword = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
 class AuthVM extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FireStoreService _fireStoreService = locator<FireStoreService>();
+  final _dataRepo = locator<DataRepo>();
 
   AuthVM() {
     _loginType = LoginType.signUp;
@@ -249,23 +252,31 @@ class AuthVM extends ChangeNotifier {
 
   bool loginClicked = false;
 
-  Future<bool> signUp() async {
+  Future<void> signUp(BuildContext context) async {
+    if (loginClicked) {
+      return;
+    }
     buttonPressed = true;
     _hasAuthError = false;
     loginClicked = true;
-    bool answer = false;
+    bool success = false;
     if (_loginType == LoginType.signUp) {
       if (_getErrorNumber() == 0) {
-        answer = await _signUpEmail();
+        success = await _signUpEmail();
       } else {
         log('There are register errors');
       }
     } else if (_loginType == LoginType.login) {
-      answer = await _loginEmail();
+      success = await _loginEmail();
     }
     isLoading = false;
     loginClicked = false;
-    return answer;
+    if (success && _auth.currentUser != null) {
+      await _dataRepo.init();
+      await Navigator.of(context).pushReplacementNamed(
+        Routes.primary,
+      );
+    }
   }
 }
 

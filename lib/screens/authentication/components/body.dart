@@ -116,20 +116,7 @@ class _BodyState extends State<Body> {
                     ),
                     ArrowButtonBackground(
                       child: ArrowButton(
-                        onPress: () async {
-                          if (!prov.loginClicked) {
-                            final success = await Provider.of<AuthVM>(
-                              context,
-                              listen: false,
-                            ).signUp();
-
-                            if (success) {
-                              await Navigator.of(context).pushReplacementNamed(
-                                Routes.primary,
-                              );
-                            }
-                          }
-                        },
+                        onPress: () => context.read<AuthVM>().signUp(context),
                         isLoading: context.watch<AuthVM>().isLoading,
                       ),
                     ),
