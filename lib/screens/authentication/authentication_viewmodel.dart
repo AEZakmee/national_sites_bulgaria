@@ -213,13 +213,12 @@ class AuthVM extends ChangeNotifier {
       final newUser = _auth.currentUser;
       if (newUser != null) {
         final user = AppUser(
-            uniqueID: authResult.user!.uid,
-            email: authResult.user!.email!,
-            username: _username.data,
-            picture: '',
-            places: [],
-            totalPlaces: 0,
-            votedPlaces: []);
+          uniqueID: authResult.user!.uid,
+          email: authResult.user!.email!,
+          username: _username.data,
+          favouriteSites: [],
+          votes: [],
+        );
 
         await _fireStoreService.addUser(user);
         return true;

@@ -10,13 +10,13 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) => AppUser(
       uniqueID: json['uniqueID'] as String,
       email: json['email'] as String,
       username: json['username'] as String,
-      places:
-          (json['places'] as List<dynamic>).map((e) => e as String).toList(),
-      picture: json['picture'] as String,
-      totalPlaces: json['totalPlaces'] as int,
-      votedPlaces: (json['votedPlaces'] as List<dynamic>)
+      favouriteSites: (json['favouriteSites'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      votes: (json['votes'] as List<dynamic>)
+          .map((e) => SiteVote.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      picture: json['picture'] as String?,
     );
 
 Map<String, dynamic> _$AppUserToJson(AppUser instance) => <String, dynamic>{
@@ -24,7 +24,16 @@ Map<String, dynamic> _$AppUserToJson(AppUser instance) => <String, dynamic>{
       'email': instance.email,
       'username': instance.username,
       'picture': instance.picture,
-      'totalPlaces': instance.totalPlaces,
-      'places': instance.places,
-      'votedPlaces': instance.votedPlaces,
+      'favouriteSites': instance.favouriteSites,
+      'votes': instance.votes,
+    };
+
+SiteVote _$SiteVoteFromJson(Map<String, dynamic> json) => SiteVote(
+      json['siteId'] as String,
+      json['vote'] as int,
+    );
+
+Map<String, dynamic> _$SiteVoteToJson(SiteVote instance) => <String, dynamic>{
+      'siteId': instance.siteId,
+      'vote': instance.vote,
     };

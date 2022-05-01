@@ -12,7 +12,7 @@ class RecommendationVM extends ChangeNotifier {
   final imageViewController = PageController();
 
   List<Site> get sites => _dataRepo.sites;
-  List<String> get _favourites => _dataRepo.user.places;
+  List<String> get _favourites => _dataRepo.user.favouriteSites;
 
   List<Site> get favouriteSites => sites
       .where((element) => _favourites.contains(element.siteNumber))
