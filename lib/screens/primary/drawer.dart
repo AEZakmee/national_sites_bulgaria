@@ -16,6 +16,7 @@ class _MainDrawer extends StatelessWidget {
           child: Container(
             color: theme.backgroundColor,
             child: ListView(
+              shrinkWrap: true,
               padding: EdgeInsets.zero,
               children: [
                 UserAccountsDrawerHeader(
@@ -52,6 +53,8 @@ class _MainDrawer extends StatelessWidget {
         return const _MainDrawerBody();
       case DrawerState.language:
         return const _ChangeLanguageDrawerBody();
+      case DrawerState.scheme:
+        return const _ChangeSchemeDrawerBody();
     }
   }
 }
@@ -97,7 +100,61 @@ class _ChangeLanguageDrawerBody extends StatelessWidget {
           },
         ),
         const SizedBox(
-          height: 50,
+          height: 120,
+        ),
+      ],
+    );
+  }
+}
+
+class _ChangeSchemeDrawerBody extends StatelessWidget {
+  const _ChangeSchemeDrawerBody({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
+    final theme = Theme.of(context);
+    return Column(
+      children: [
+        ...List.generate(
+          FlexScheme.values.length,
+          (index) => ListTile(
+            leading: Icon(
+              Icons.check,
+              color: themeProvider.scheme == FlexScheme.values[index]
+                  ? theme.primaryColor
+                  : Colors.transparent,
+            ),
+            title: Text(FlexScheme.values[index].name.parseThemeName()),
+            onTap: () {
+              context.read<ThemeProvider>().updateScheme(
+                    FlexScheme.values[index],
+                  );
+              context.read<DrawerVM>().switchState(
+                    DrawerState.main,
+                  );
+            },
+            trailing: Theme(
+              data: theme.isDarkTheme(context)
+                  ? FlexColorScheme.dark(scheme: FlexScheme.values[index])
+                      .toTheme
+                  : FlexColorScheme.light(scheme: FlexScheme.values[index])
+                      .toTheme,
+              child: Builder(
+                builder: (context) => Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 120,
         ),
       ],
     );
@@ -137,6 +194,13 @@ class _MainDrawerBody extends StatelessWidget {
               onToggle: (_) => context.read<ThemeProvider>().switchTheme(),
             ),
           ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.color_lens),
+          title: Text('Color Scheme'),
+          onTap: () => context.read<DrawerVM>().switchState(
+                DrawerState.scheme,
+              ),
         ),
         const Divider(),
         ListTile(

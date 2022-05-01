@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 enum DrawerState {
   main,
   language,
+  scheme,
 }
 
 class DrawerVM extends ChangeNotifier {

@@ -268,14 +268,14 @@ class AuthVM extends ChangeNotifier {
     } else if (_loginType == LoginType.login) {
       success = await _loginEmail();
     }
-    isLoading = false;
-    loginClicked = false;
     if (success && _auth.currentUser != null) {
       await _dataRepo.init();
       await Navigator.of(context).pushReplacementNamed(
         Routes.primary,
       );
     }
+    isLoading = false;
+    loginClicked = false;
   }
 }
 

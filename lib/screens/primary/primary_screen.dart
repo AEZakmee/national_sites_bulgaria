@@ -1,10 +1,12 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/localization_provider.dart';
 import '../../providers/theme_provider.dart';
+import '../../utilitiies/extensions.dart';
 import '../../widgets/page_transition.dart';
 import '../../widgets/viewmodel_builder.dart';
 import 'drawer_viewmodel.dart';

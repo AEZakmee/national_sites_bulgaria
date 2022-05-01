@@ -41,16 +41,22 @@ class _Body extends StatelessWidget {
           ),
           Positioned(
             top: _topImageHeight,
-            right: 10,
-            left: 10,
+            right: 0,
+            left: 0,
             child: SizedBox(
               height: MediaQuery.of(context).size.height - _topImageHeight,
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: const [
                   SizedBox(height: 35),
-                  _FavouritesRow(),
-                  _SitesColumn(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: _FavouritesRow(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: _SitesColumn(),
+                  ),
                   SizedBox(height: 100),
                 ],
               ),

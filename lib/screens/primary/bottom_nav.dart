@@ -12,21 +12,21 @@ class _BottomNav extends StatelessWidget {
       backgroundColor: Colors.transparent,
       color: theme.secondaryHeaderColor,
       index: context.watch<PrimaryVM>().page,
-      items: [
+      items: const [
         Icon(
           Icons.home,
           size: 30,
-          color: theme.primaryColor,
+          color: Colors.black,
         ),
         Icon(
           Icons.place,
           size: 30,
-          color: theme.primaryColor,
+          color: Colors.black,
         ),
         Icon(
           Icons.chat,
           size: 30,
-          color: theme.primaryColor,
+          color: Colors.black,
         ),
       ],
       onTap: context.read<PrimaryVM>().changePage,

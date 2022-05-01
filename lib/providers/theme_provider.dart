@@ -23,12 +23,20 @@ class ThemeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateScheme(FlexScheme scheme) async {
+    themeService.flexScheme = scheme;
+    await themeService.setScheme(scheme);
+    notifyListeners();
+  }
+
+  FlexScheme get scheme => themeService.flexScheme;
+
   ThemeData getTheme() {
     switch (themeService.brightness) {
       case Brightness.light:
-        return FlexColorScheme.light(scheme: FlexScheme.barossa).toTheme;
+        return FlexColorScheme.light(scheme: themeService.flexScheme).toTheme;
       case Brightness.dark:
-        return FlexColorScheme.dark(scheme: FlexScheme.barossa).toTheme;
+        return FlexColorScheme.dark(scheme: themeService.flexScheme).toTheme;
     }
   }
 }
