@@ -1,8 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../app/locator.dart';
+import '../../app/router.dart';
+import '../../data/models/chat_room.dart';
 import '../../data/models/site.dart';
 import '../../data/sites_repo.dart';
 import '../../services/firestore_service.dart';
@@ -85,5 +86,22 @@ class InfoVM extends ChangeNotifier {
     await _fireStoreService.voteForSite(site.uid, userRating);
   }
 
-  Future<void> openChat(BuildContext context) async {}
+  Future<void> openChat(BuildContext context) async {
+    final bool exists = await _fireStoreService.checkRoomExists(site.uid);
+    if (!exists) {
+      await _fireStoreService.createRoom(ChatRoom(
+        siteId: site.uid,
+        roomName: site.info.name,
+        roomImage: site.image.url,
+        imageHash: site.image.hash,
+        lastMessage: '',
+        lastMessageTime: DateTime.now(),
+      ));
+    }
+    final freshRoom = await _fireStoreService.fetchRoom(site.uid);
+    await Navigator.of(context).pushNamed(
+      Routes.chat,
+      arguments: ChatRoomArguments(freshRoom),
+    );
+  }
 }

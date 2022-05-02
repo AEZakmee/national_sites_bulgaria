@@ -210,9 +210,9 @@ class _VoteStarState extends State<_VoteStar> {
           color: Colors.transparent,
           child: Container(
             height: 300,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),
               ),

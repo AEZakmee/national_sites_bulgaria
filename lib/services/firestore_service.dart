@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../data/models/app_user.dart';
+import '../data/models/chat_room.dart';
+import '../data/models/message.dart';
 import '../data/models/site.dart';
 
 class FireStoreService {
@@ -87,4 +89,45 @@ class FireStoreService {
       transaction.update(userSnapshot.reference, freshUser.toJson());
     });
   }
+
+  //Messages
+  Future<bool> checkRoomExists(String siteId) =>
+      _db.collection('rooms').doc(siteId).get().then((value) => value.exists);
+
+  Future<void> createRoom(ChatRoom room) =>
+      _db.collection('rooms').doc(room.siteId).set(room.toJson());
+
+  Future<ChatRoom> fetchRoom(String siteId) => _db
+      .collection('rooms')
+      .doc(siteId)
+      .get()
+      .then((value) => ChatRoom.fromJson(value.data()!));
+
+  Future<void> sendMessage(ChatMessage message, String siteId) async {
+    await _db
+        .collection('rooms')
+        .doc(siteId)
+        .collection('messages')
+        .doc('${message.sendTime.millisecondsSinceEpoch}')
+        .set(message.toJson());
+
+    await _db.collection('rooms').doc(siteId).update({
+      'lastMessage': message.message,
+      'lastMessageTime': message.sendTime.toString(),
+    });
+  }
+
+  Stream<List<ChatRoom>> roomsStream() => _db
+      .collection('rooms')
+      .snapshots()
+      .map((query) => query.docs)
+      .map((doc) => doc.map((e) => ChatRoom.fromJson(e.data())).toList());
+
+  Stream<List<ChatMessage>> messagesStream(String siteId) => _db
+      .collection('rooms')
+      .doc(siteId)
+      .collection('messages')
+      .snapshots()
+      .map((query) => query.docs)
+      .map((doc) => doc.map((e) => ChatMessage.fromJson(e.data())).toList());
 }
