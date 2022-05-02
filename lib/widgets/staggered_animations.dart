@@ -22,6 +22,7 @@ class StaggeredListView extends StatelessWidget {
           physics: physics,
           shrinkWrap: shrinkWrap,
           controller: controller,
+          padding: EdgeInsets.zero,
           itemBuilder: (BuildContext context, int index) =>
               AnimationConfiguration.staggeredList(
             position: index,

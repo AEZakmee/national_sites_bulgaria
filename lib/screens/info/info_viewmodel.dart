@@ -51,8 +51,7 @@ class InfoVM extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool get isFavourite =>
-      _dataRepo.user.favouriteSites.contains(site.siteNumber);
+  bool get isFavourite => _dataRepo.user.favouriteSites.contains(site.uid);
 
   double get rating {
     if (site.rating.count == 0) {
@@ -69,10 +68,10 @@ class InfoVM extends ChangeNotifier {
 
   Future<void> toggleFavorite() async {
     final favorites = _dataRepo.user.favouriteSites;
-    if (favorites.contains(site.siteNumber)) {
-      favorites.remove(site.siteNumber);
+    if (favorites.contains(site.uid)) {
+      favorites.remove(site.uid);
     } else {
-      favorites.add(site.siteNumber);
+      favorites.add(site.uid);
     }
     await _fireStoreService.updateUserFavourites(
       favorites,

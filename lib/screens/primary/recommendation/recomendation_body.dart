@@ -49,7 +49,7 @@ class _Body extends StatelessWidget {
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: const [
-                  SizedBox(height: 35),
+                  SizedBox(height: 40),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: _FavouritesRow(),
