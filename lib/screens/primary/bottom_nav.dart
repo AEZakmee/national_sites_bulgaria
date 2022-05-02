@@ -9,9 +9,9 @@ class _BottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return CurvedNavigationBar(
+      key: bottomNavKye,
       backgroundColor: Colors.transparent,
       color: theme.secondaryHeaderColor,
-      index: context.watch<PrimaryVM>().page,
       items: const [
         Icon(
           Icons.home,

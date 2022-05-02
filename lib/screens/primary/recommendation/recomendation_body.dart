@@ -8,6 +8,7 @@ import '../../../widgets/cached_image.dart';
 import '../../../widgets/keyboard_dismisser.dart';
 import '../../../widgets/staggered_animations.dart';
 import '../../../widgets/viewmodel_builder.dart';
+import '../primary_viewmodel.dart';
 import '../widgets/see_all.dart';
 import '../widgets/site_card.dart';
 import 'recommendation_viewmodel.dart';
@@ -171,8 +172,9 @@ class _SitesColumn extends StatelessWidget {
     }
     return Column(
       children: [
-        const TitleSeeAll(
+        TitleSeeAll(
           text: 'National sites',
+          onTap: () => context.read<PrimaryVM>().changePageNotifier(1),
         ),
         const SizedBox(height: 10),
         StaggeredColumnScale(

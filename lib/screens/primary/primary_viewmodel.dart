@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -5,18 +6,15 @@ import '../../app/locator.dart';
 import '../../app/router.dart';
 import '../../data/sites_repo.dart';
 
+GlobalKey<CurvedNavigationBarState> bottomNavKye = GlobalKey();
+
 class PrimaryVM extends ChangeNotifier {
   final _dataRepo = locator<DataRepo>();
   final _auth = FirebaseAuth.instance;
 
   final pageController = PageController();
 
-  int get page {
-    if (pageController.hasClients) {
-      return pageController.page!.toInt();
-    }
-    return 0;
-  }
+  int page = 0;
 
   void init() => _dataRepo.initListeners();
 
@@ -28,10 +26,16 @@ class PrimaryVM extends ChangeNotifier {
   }
 
   void changePage(int index) {
+    page = index;
     pageController.animateToPage(
       index,
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeIn,
     );
+  }
+
+  void changePageNotifier(int index) {
+    final CurvedNavigationBarState? navBarState = bottomNavKye.currentState;
+    navBarState?.setPage(1);
   }
 }
