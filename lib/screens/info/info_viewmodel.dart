@@ -85,4 +85,6 @@ class InfoVM extends ChangeNotifier {
     }
     await _fireStoreService.voteForSite(site.uid, userRating);
   }
+
+  Future<void> openChat(BuildContext context) async {}
 }

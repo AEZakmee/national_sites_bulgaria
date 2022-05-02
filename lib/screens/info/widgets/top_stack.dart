@@ -7,6 +7,8 @@ import '../../../widgets/cached_image.dart';
 import '../../primary/recommendation/recomendation_body.dart';
 import '../info_viewmodel.dart';
 
+const _iconSize = 40.0;
+
 class TopStack extends StatelessWidget {
   const TopStack({Key? key}) : super(key: key);
 
@@ -49,7 +51,7 @@ class ButtonsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         height: 80,
-        width: 300,
+        width: 320,
         decoration: BoxDecoration(
           color: Theme.of(context).backgroundColor,
           borderRadius: const BorderRadius.only(
@@ -93,12 +95,35 @@ class RatingsRow extends StatelessWidget {
                         color: viewModel.isFavourite
                             ? Colors.redAccent
                             : Theme.of(context).dividerColor,
-                        size: 45,
+                        size: _iconSize,
                       ),
                     ),
                     FittedBox(
                       child: Text(
                         viewModel.isFavourite ? 'Remove' : 'Add',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: GestureDetector(
+                onTap: () => viewModel.openChat(context),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    FittedBox(
+                      child: Icon(
+                        Icons.chat,
+                        color: Theme.of(context).primaryColor,
+                        size: _iconSize,
+                      ),
+                    ),
+                    FittedBox(
+                      child: Text(
+                        'Chat',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
@@ -116,7 +141,7 @@ class RatingsRow extends StatelessWidget {
                       child: Icon(
                         Icons.navigation,
                         color: Theme.of(context).primaryColor,
-                        size: 45,
+                        size: _iconSize,
                       ),
                     ),
                     FittedBox(
@@ -156,7 +181,7 @@ class _VoteStarState extends State<_VoteStar> {
             child: Icon(
               Icons.star,
               color: Colors.amber,
-              size: 45,
+              size: _iconSize,
             ),
           ),
           FittedBox(

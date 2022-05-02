@@ -19,14 +19,24 @@ class InfoScreen extends StatelessWidget {
         viewModelBuilder: () => InfoVM(uid),
         onDispose: (viewModel) => viewModel.onDispose(),
         onModelReady: (viewModel) => viewModel.init(),
-        builder: (context, viewModel) => Scaffold(
+        builder: (context, viewModel) => const Scaffold(
           extendBodyBehindAppBar: true,
-          body: const _Body(),
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-          ),
+          body: _Body(),
+          appBar: _AppBar(),
         ),
       );
+}
+
+class _AppBar extends StatelessWidget with PreferredSizeWidget {
+  const _AppBar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => AppBar(
+        backgroundColor: Colors.transparent,
+      );
+
+  @override
+  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
 }
 
 class _Body extends StatelessWidget {
