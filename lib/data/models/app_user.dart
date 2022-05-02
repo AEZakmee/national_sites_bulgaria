@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'app_user.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class AppUser {
   String uniqueID;
   String email;

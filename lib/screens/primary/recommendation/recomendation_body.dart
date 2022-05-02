@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../app/router.dart';
 import '../../../utilitiies/constants.dart';
 import '../../../utilitiies/extensions.dart';
 import '../../../widgets/cached_image.dart';
@@ -11,7 +12,7 @@ import '../widgets/see_all.dart';
 import '../widgets/site_card.dart';
 import 'recommendation_viewmodel.dart';
 
-const double _topImageHeight = 280;
+const double topImageHeight = 280;
 
 class RecommendationBody extends StatelessWidget {
   const RecommendationBody({Key? key}) : super(key: key);
@@ -40,11 +41,11 @@ class _Body extends StatelessWidget {
             child: _TopImagePageView(),
           ),
           Positioned(
-            top: _topImageHeight,
+            top: topImageHeight,
             right: 0,
             left: 0,
             child: SizedBox(
-              height: MediaQuery.of(context).size.height - _topImageHeight,
+              height: MediaQuery.of(context).size.height - topImageHeight,
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: const [
@@ -63,7 +64,7 @@ class _Body extends StatelessWidget {
             ),
           ),
           const Positioned(
-            top: _topImageHeight - 25,
+            top: topImageHeight - 25,
             left: 20,
             right: 20,
             child: _SearchField(),
@@ -79,30 +80,38 @@ class _TopImagePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = context.watch<RecommendationVM>();
     return SizedBox(
-      height: _topImageHeight,
+      height: topImageHeight,
       child: PageView(
         controller: viewModel.imageViewController,
         children: [
           ...List.generate(
             viewModel.sites.length,
-            (index) => Stack(
-              children: [
-                SizedBox(
-                  height: _topImageHeight,
-                  width: double.infinity,
-                  child: CustomCachedImage(
-                    url: viewModel.sites[index].image.url,
-                    hash: viewModel.sites[index].image.hash,
-                  ),
+            (index) => GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed(
+                Routes.info,
+                arguments: InfoScreenArguments(
+                  viewModel.sites[index].uid,
                 ),
-                Container(
-                  height: _topImageHeight,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    gradient: kOverImageGradient(),
+              ),
+              child: Stack(
+                children: [
+                  SizedBox(
+                    height: topImageHeight,
+                    width: double.infinity,
+                    child: CustomCachedImage(
+                      url: viewModel.sites[index].image.url,
+                      hash: viewModel.sites[index].image.hash,
+                    ),
                   ),
-                ),
-              ],
+                  Container(
+                    height: topImageHeight,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      gradient: kOverImageGradient(),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

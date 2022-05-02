@@ -2,13 +2,14 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'site.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Site {
   Coordinates coordinates;
   Image image;
   Info info;
   Rating rating;
   String siteNumber;
+  String uid;
 
   Site(
     this.coordinates,
@@ -16,6 +17,7 @@ class Site {
     this.info,
     this.rating,
     this.siteNumber,
+    this.uid,
   );
 
   factory Site.fromJson(Map<String, dynamic> json) => _$SiteFromJson(json);
@@ -69,8 +71,8 @@ class Info {
 
 @JsonSerializable()
 class Rating {
-  double count;
-  double total;
+  int count;
+  int total;
 
   Rating(
     this.count,

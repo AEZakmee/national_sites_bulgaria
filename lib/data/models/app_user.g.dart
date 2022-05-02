@@ -25,7 +25,7 @@ Map<String, dynamic> _$AppUserToJson(AppUser instance) => <String, dynamic>{
       'username': instance.username,
       'picture': instance.picture,
       'favouriteSites': instance.favouriteSites,
-      'votes': instance.votes,
+      'votes': instance.votes.map((e) => e.toJson()).toList(),
     };
 
 SiteVote _$SiteVoteFromJson(Map<String, dynamic> json) => SiteVote(

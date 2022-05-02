@@ -12,14 +12,16 @@ Site _$SiteFromJson(Map<String, dynamic> json) => Site(
       Info.fromJson(json['info'] as Map<String, dynamic>),
       Rating.fromJson(json['rating'] as Map<String, dynamic>),
       json['siteNumber'] as String,
+      json['uid'] as String,
     );
 
 Map<String, dynamic> _$SiteToJson(Site instance) => <String, dynamic>{
-      'coordinates': instance.coordinates,
-      'image': instance.image,
-      'info': instance.info,
-      'rating': instance.rating,
+      'coordinates': instance.coordinates.toJson(),
+      'image': instance.image.toJson(),
+      'info': instance.info.toJson(),
+      'rating': instance.rating.toJson(),
       'siteNumber': instance.siteNumber,
+      'uid': instance.uid,
     };
 
 Coordinates _$CoordinatesFromJson(Map<String, dynamic> json) => Coordinates(
@@ -56,8 +58,8 @@ Map<String, dynamic> _$InfoToJson(Info instance) => <String, dynamic>{
     };
 
 Rating _$RatingFromJson(Map<String, dynamic> json) => Rating(
-      (json['count'] as num).toDouble(),
-      (json['total'] as num).toDouble(),
+      json['count'] as int,
+      json['total'] as int,
     );
 
 Map<String, dynamic> _$RatingToJson(Rating instance) => <String, dynamic>{
