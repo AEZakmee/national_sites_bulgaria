@@ -3,7 +3,6 @@ import 'package:timeago/timeago.dart';
 
 import '../../../../data/models/message.dart';
 import '../../../utilitiies/extensions.dart';
-import '../../../widgets/cached_image.dart';
 
 class MessageBox extends StatelessWidget {
   const MessageBox({
@@ -36,10 +35,14 @@ class MessageBox extends StatelessWidget {
             ),
           Builder(builder: (context) {
             if (sendByUser) {
-              return _SendByCurrentUser(
-                message: message,
-                first: first,
-                last: last,
+              return GestureDetector(
+                //todo: add delete
+                onLongPress: () {},
+                child: _SendByCurrentUser(
+                  message: message,
+                  first: first,
+                  last: last,
+                ),
               );
             }
             return _SendByAnotherUser(
@@ -66,7 +69,6 @@ class _SendByCurrentUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
         padding: EdgeInsets.only(
-          left: 100,
           right: 2,
           top: 2,
           bottom: first ? 10 : 2,
@@ -76,22 +78,28 @@ class _SendByCurrentUser extends StatelessWidget {
             Row(
               children: [
                 const Spacer(),
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor.withOpacity(0.5),
-                    borderRadius: BorderRadius.only(
-                      topLeft: const Radius.circular(15),
-                      bottomLeft: const Radius.circular(15),
-                      topRight: last ? const Radius.circular(15) : Radius.zero,
-                      bottomRight:
-                          first ? const Radius.circular(15) : Radius.zero,
-                    ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.8,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      message.message,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor.withOpacity(0.5),
+                      borderRadius: BorderRadius.only(
+                        topLeft: const Radius.circular(15),
+                        bottomLeft: const Radius.circular(15),
+                        topRight:
+                            last ? const Radius.circular(15) : Radius.zero,
+                        bottomRight:
+                            first ? const Radius.circular(15) : Radius.zero,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        message.message,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                     ),
                   ),
                 ),
@@ -133,7 +141,6 @@ class _SendByAnotherUser extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: EdgeInsets.only(
           left: 2,
-          right: 100,
           top: 2,
           bottom: first ? 10 : 2,
         ),
@@ -154,6 +161,7 @@ class _SendByAnotherUser extends StatelessWidget {
                 ),
               ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 2, right: 8),
@@ -161,7 +169,7 @@ class _SendByAnotherUser extends StatelessWidget {
                     width: 40,
                     height: 40,
                     child: first
-                        ? Container(
+                        ? DecoratedBox(
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: Theme.of(context).splashColor,
@@ -175,22 +183,28 @@ class _SendByAnotherUser extends StatelessWidget {
                         : null,
                   ),
                 ),
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor.withOpacity(0.5),
-                    borderRadius: BorderRadius.only(
-                      topLeft: last ? const Radius.circular(15) : Radius.zero,
-                      bottomLeft:
-                          first ? const Radius.circular(15) : Radius.zero,
-                      topRight: const Radius.circular(15),
-                      bottomRight: const Radius.circular(15),
-                    ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.7,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      message.message,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor.withOpacity(0.5),
+                      borderRadius: BorderRadius.only(
+                        topLeft: last ? const Radius.circular(15) : Radius.zero,
+                        bottomLeft:
+                            first ? const Radius.circular(15) : Radius.zero,
+                        topRight: const Radius.circular(15),
+                        bottomRight: const Radius.circular(15),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        message.message,
+                        maxLines: 100,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                     ),
                   ),
                 ),
