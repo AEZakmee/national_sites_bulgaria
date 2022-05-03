@@ -21,17 +21,37 @@ class _MainDrawer extends StatelessWidget {
               children: [
                 UserAccountsDrawerHeader(
                   decoration: BoxDecoration(
-                    color: theme.brightness.index != 1
-                        ? theme.primaryColor
-                        : theme.secondaryHeaderColor,
+                    color: theme.secondaryHeaderColor,
+                  ),
+                  currentAccountPicture: DecoratedBox(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: theme.primaryColor,
+                    ),
+                    child: Center(
+                      child: Text(
+                        context
+                            .read<DrawerVM>()
+                            .user
+                            .username
+                            .parsePersonTwoCharactersName(),
+                        style: theme.textTheme.headlineMedium!.copyWith(
+                          color: theme.backgroundColor,
+                        ),
+                      ),
+                    ),
                   ),
                   accountName: Text(
-                    'Gosho',
-                    style: theme.textTheme.titleLarge,
+                    context.read<DrawerVM>().user.username,
+                    style: theme.textTheme.titleLarge!.copyWith(
+                      color: theme.backgroundColor,
+                    ),
                   ),
                   accountEmail: Text(
-                    'Mail',
-                    style: theme.textTheme.bodyLarge,
+                    context.read<DrawerVM>().user.email,
+                    style: theme.textTheme.bodyLarge!.copyWith(
+                      color: theme.backgroundColor,
+                    ),
                   ),
                 ),
                 DefaultPageTransition(

@@ -67,6 +67,13 @@ class _Body extends StatelessWidget {
     return current.userId != next.userId;
   }
 
+  bool overOneHourThanPrevious(ChatMessage current, ChatMessage? previous) {
+    if (previous == null) {
+      return true;
+    }
+    return current.sendTime.difference(previous.sendTime).inHours > 1;
+  }
+
   @override
   Widget build(BuildContext context) => StreamBuilder<List<ChatMessage>>(
         stream: context.read<ChatRoomVM>().messagesStream,
@@ -86,6 +93,10 @@ class _Body extends StatelessWidget {
                 index > 0 ? data[index - 1] : null,
               ),
               last: lastFromThisUser(
+                data[index],
+                index < data.length - 1 ? data[index + 1] : null,
+              ),
+              overOneHour: overOneHourThanPrevious(
                 data[index],
                 index < data.length - 1 ? data[index + 1] : null,
               ),
