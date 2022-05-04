@@ -197,7 +197,7 @@ class _SitesColumn extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         StaggeredColumnScale(
-          count: viewModel.sites.length,
+          count: viewModel.sites.length.clamp(0, 5),
           children: [
             ...List.generate(
               viewModel.sites.length,
