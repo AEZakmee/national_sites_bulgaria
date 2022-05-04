@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 
 import '../../../app/locator.dart';
@@ -13,7 +14,26 @@ class RecommendationVM extends ChangeNotifier {
   final _dataRepo = locator<DataRepo>();
   final _fireStoreService = locator<FireStoreService>();
 
+  final textController = TextEditingController();
+  String textFilter = '';
+  void updateFilter() {
+    textFilter = textController.text;
+    EasyDebounce.debounce(
+      'search-key',
+      const Duration(milliseconds: 300),
+      notifyListeners,
+    );
+  }
+
+  bool get shouldShowSearch => textFilter.length > 2;
+
   final imageViewController = PageController();
+
+  List<Site> get filteredSites => _dataRepo.sites
+      .where(
+        (element) => element.info.name.contains(textFilter),
+      )
+      .toList();
 
   List<Site> get sites => _dataRepo.sites;
   List<String> get _favourites => _dataRepo.user.favouriteSites;

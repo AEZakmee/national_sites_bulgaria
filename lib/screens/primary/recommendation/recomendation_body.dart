@@ -48,25 +48,37 @@ class _Body extends StatelessWidget {
             left: 0,
             child: SizedBox(
               height: MediaQuery.of(context).size.height - topImageHeight,
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: const [
-                  SizedBox(height: 40),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: _FavouritesRow(),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: _ActiveChats(),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: _SitesColumn(),
-                  ),
-                  SizedBox(height: 100),
-                ],
-              ),
+              child: context.watch<RecommendationVM>().shouldShowSearch
+                  ? ListView(
+                      padding: EdgeInsets.zero,
+                      children: const [
+                        SizedBox(height: 40),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: _SitesFilteredColumn(),
+                        ),
+                        SizedBox(height: 100),
+                      ],
+                    )
+                  : ListView(
+                      padding: EdgeInsets.zero,
+                      children: const [
+                        SizedBox(height: 40),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: _FavouritesRow(),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: _ActiveChats(),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: _SitesColumn(),
+                        ),
+                        SizedBox(height: 100),
+                      ],
+                    ),
             ),
           ),
           const Positioned(
@@ -145,6 +157,8 @@ class _SearchField extends StatelessWidget {
               : [kSearchFieldShadow(context)],
         ),
         child: TextFormField(
+          controller: context.read<RecommendationVM>().textController,
+          onChanged: (_) => context.read<RecommendationVM>().updateFilter(),
           decoration: InputDecoration(
             enabledBorder: kTextFieldBorder(),
             focusedBorder: kTextFieldBorder(),
@@ -191,6 +205,37 @@ class _SitesColumn extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 10),
                 child: SiteCardWhole(
                   site: viewModel.sites[index],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _SitesFilteredColumn extends StatelessWidget {
+  const _SitesFilteredColumn({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.watch<RecommendationVM>();
+    if (viewModel.sites.isEmpty) {
+      return const SizedBox.shrink();
+    }
+    final sites = viewModel.filteredSites;
+    return Column(
+      children: [
+        StaggeredColumnScale(
+          count: sites.length,
+          children: [
+            ...List.generate(
+              sites.length,
+              (index) => Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: SiteCardWhole(
+                  site: sites[index],
                 ),
               ),
             ),
