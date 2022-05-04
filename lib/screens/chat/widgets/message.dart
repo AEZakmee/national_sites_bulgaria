@@ -84,7 +84,7 @@ class _SendByCurrentUser extends StatelessWidget {
                   ),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor.withOpacity(0.5),
+                      color: Theme.of(context).primaryColor.withOpacity(0.75),
                       borderRadius: BorderRadius.only(
                         topLeft: const Radius.circular(15),
                         bottomLeft: const Radius.circular(15),
@@ -98,7 +98,9 @@ class _SendByCurrentUser extends StatelessWidget {
                       padding: const EdgeInsets.all(15.0),
                       child: Text(
                         message.message,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Colors.white,
+                            ),
                       ),
                     ),
                   ),
@@ -189,7 +191,9 @@ class _SendByAnotherUser extends StatelessWidget {
                   ),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor.withOpacity(0.5),
+                      color: Theme.of(context)
+                          .secondaryHeaderColor
+                          .withOpacity(0.5),
                       borderRadius: BorderRadius.only(
                         topLeft: last ? const Radius.circular(15) : Radius.zero,
                         bottomLeft:
@@ -203,7 +207,12 @@ class _SendByAnotherUser extends StatelessWidget {
                       child: Text(
                         message.message,
                         maxLines: 100,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : Colors.white,
+                            ),
                       ),
                     ),
                   ),

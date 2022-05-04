@@ -25,11 +25,13 @@ class ChatRoomScreen extends StatelessWidget {
         viewModelBuilder: () => ChatRoomVM(room),
         onModelReady: (viewModel) => viewModel.init(),
         builder: (context, viewModel) => ColoredSafeArea(
-          topColor: Theme.of(context).backgroundColor,
+          topColor: Theme.of(context).primaryColor,
+          bottomColor: Theme.of(context).backgroundColor,
           child: KeyboardDismissOnTap(
             child: Scaffold(
               appBar: AppBar(
                 title: Text(viewModel.room.roomName),
+                backgroundColor: Theme.of(context).primaryColor,
               ),
               body: Stack(
                 children: const [
@@ -61,7 +63,7 @@ class _SendBar extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: Theme.of(context).backgroundColor,
-          boxShadow: [kBoxShadowLite(context)],
+          boxShadow: [kBoxShadowLiteTop(context)],
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),

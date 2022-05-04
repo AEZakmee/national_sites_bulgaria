@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../app/router.dart';
+import '../../../data/models/chat_room.dart';
 import '../../../utilitiies/constants.dart';
 import '../../../utilitiies/extensions.dart';
 import '../../../widgets/cached_image.dart';
@@ -54,6 +55,10 @@ class _Body extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: _FavouritesRow(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: _ActiveChats(),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
@@ -224,6 +229,69 @@ class _FavouritesRow extends StatelessWidget {
                 site: viewModel.favouriteSites[index],
               ),
             ),
+          ),
+        ),
+        const SizedBox(height: 10),
+      ],
+    );
+  }
+}
+
+class _ActiveChats extends StatelessWidget {
+  const _ActiveChats({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.read<RecommendationVM>();
+    return Column(
+      children: [
+        TitleSeeAll(
+          text: 'Active chat rooms',
+          onTap: () => context.read<PrimaryVM>().changePageNotifier(2),
+        ),
+        const SizedBox(height: 10),
+        SizedBox(
+          width: double.infinity,
+          child: StreamBuilder<List<ChatRoom>>(
+            stream: viewModel.roomsStream,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const SizedBox.shrink();
+              }
+              final rooms = snapshot.data!.take(7).toList();
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: StaggeredRow(
+                  count: rooms.length,
+                  children: List.generate(
+                    rooms.length,
+                    (index) => Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 5,
+                        right: 10,
+                      ),
+                      child: InkWell(
+                        onTap: () => viewModel.openChat(
+                          context,
+                          rooms[index].siteId,
+                        ),
+                        child: SizedBox(
+                          height: 60,
+                          width: 60,
+                          child: CustomCachedImage(
+                            url: rooms[index].roomImage,
+                            hash: rooms[index].imageHash,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
         ),
         const SizedBox(height: 10),

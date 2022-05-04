@@ -119,6 +119,7 @@ class FireStoreService {
 
   Stream<List<ChatRoom>> roomsStream() => _db
       .collection('rooms')
+      .orderBy('lastMessageTime', descending: true)
       .snapshots()
       .map((query) => query.docs)
       .map((doc) => doc.map((e) => ChatRoom.fromJson(e.data())).toList());

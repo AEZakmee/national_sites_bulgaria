@@ -19,6 +19,12 @@ BoxShadow kBoxShadow(context) => BoxShadow(
       blurRadius: 15,
       spreadRadius: 5,
     );
+BoxShadow kBoxShadowLiteTop(context) => BoxShadow(
+      color: Theme.of(context).shadowColor.withOpacity(0.1),
+      blurRadius: 2,
+      offset: Offset(0, -3),
+      spreadRadius: 2,
+    );
 
 BoxShadow kSearchFieldShadow(context) => BoxShadow(
       offset: const Offset(3, 3),

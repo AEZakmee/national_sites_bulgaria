@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../utilitiies/constants.dart';
 
 class CustomAppBarContainer extends StatelessWidget {
-  const CustomAppBarContainer({Key? key}) : super(key: key);
+  const CustomAppBarContainer({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(

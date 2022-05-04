@@ -11,12 +11,14 @@ class CustomCachedImage extends StatelessWidget {
     Key? key,
     this.borderRadius,
     this.shadow,
+    this.shape = BoxShape.rectangle,
   }) : super(key: key);
 
   final String url;
   final String hash;
   final BorderRadius? borderRadius;
   final List<BoxShadow>? shadow;
+  final BoxShape shape;
 
   @override
   Widget build(BuildContext context) => CachedNetworkImage(
@@ -25,6 +27,7 @@ class CustomCachedImage extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: shadow,
             borderRadius: borderRadius,
+            shape: shape,
             image: DecorationImage(
               image: imageProvider,
               fit: BoxFit.cover,

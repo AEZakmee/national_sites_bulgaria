@@ -36,6 +36,6 @@ class PrimaryVM extends ChangeNotifier {
 
   void changePageNotifier(int index) {
     final CurvedNavigationBarState? navBarState = bottomNavKye.currentState;
-    navBarState?.setPage(1);
+    navBarState?.setPage(index);
   }
 }
