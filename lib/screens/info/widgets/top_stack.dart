@@ -25,25 +25,28 @@ class TopStack extends StatelessWidget {
               height: topImageHeight,
               width: double.infinity,
               child: PageView(
-                children: [
-                  ...List.generate(
-                    context.watch<InfoVM>().site.images.length,
-                    (index) => CustomCachedImage(
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(60),
-                      ),
-                      hash: context.watch<InfoVM>().site.images[index].hash,
-                      url: context.watch<InfoVM>().site.images[index].url,
+                children: List.generate(
+                  context.watch<InfoVM>().site.images.length,
+                  (index) => CustomCachedImage(
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(60),
                     ),
-                  )
-                ],
+                    hash: context.watch<InfoVM>().site.images[index].hash,
+                    url: context.watch<InfoVM>().site.images[index].url,
+                  ),
+                ),
               ),
             ),
-            Container(
-              height: topImageHeight,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                gradient: kOverImageGradient(),
+            Positioned(
+              top: 0,
+              right: 0,
+              left: 0,
+              child: Container(
+                height: topImageHeight / 2,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: kOverImageGradient(),
+                ),
               ),
             ),
           ],
