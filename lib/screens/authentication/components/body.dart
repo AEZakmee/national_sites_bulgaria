@@ -124,34 +124,36 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 40),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    LocaleSwitcher(
-                      name: 'English',
-                      locale: Locale('en'),
-                    ),
-                    LocaleSwitcher(
-                      name: 'Български',
-                      locale: Locale('bg'),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            const Align(
-              alignment: Alignment.topRight,
-              child: SafeArea(
+            if (!prov.keyboardOpened)
+              Align(
+                alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: EdgeInsets.only(right: 24),
-                  child: CustomDayNightSwitcher(),
+                  padding: const EdgeInsets.only(bottom: 40),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      LocaleSwitcher(
+                        name: 'English',
+                        locale: Locale('en'),
+                      ),
+                      LocaleSwitcher(
+                        name: 'Български',
+                        locale: Locale('bg'),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
+            if (!prov.keyboardOpened)
+              const Align(
+                alignment: Alignment.topRight,
+                child: SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 24),
+                    child: CustomDayNightSwitcher(),
+                  ),
+                ),
+              ),
           ],
         ),
       );
