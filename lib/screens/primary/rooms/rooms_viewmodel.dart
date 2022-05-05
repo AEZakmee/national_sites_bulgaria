@@ -6,7 +6,7 @@ import '../../../data/models/chat_room.dart';
 import '../../../services/firestore_service.dart';
 
 class RoomsVM extends ChangeNotifier {
-  final _fireStoreService = locator<FireStoreService>();
+  final _fireStoreService = locator<FirestoreService>();
 
   Stream<List<ChatRoom>> get roomsStream => _fireStoreService.roomsStream();
 

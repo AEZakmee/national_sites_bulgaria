@@ -11,6 +11,7 @@ ChatMessage _$ChatMessageFromJson(Map<String, dynamic> json) => ChatMessage(
       userName: json['userName'] as String,
       message: json['message'] as String,
       sendTime: DateTime.parse(json['sendTime'] as String),
+      userPhoto: json['userPhoto'] as String?,
     );
 
 Map<String, dynamic> _$ChatMessageToJson(ChatMessage instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$ChatMessageToJson(ChatMessage instance) =>
       'userName': instance.userName,
       'message': instance.message,
       'sendTime': instance.sendTime.toIso8601String(),
+      'userPhoto': instance.userPhoto,
     };

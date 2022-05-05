@@ -9,7 +9,7 @@ import '../../data/sites_repo.dart';
 import '../../services/firestore_service.dart';
 
 class InfoVM extends ChangeNotifier {
-  final _fireStoreService = locator<FireStoreService>();
+  final _fireStoreService = locator<FirestoreService>();
   final _dataRepo = locator<DataRepo>();
 
   final String uid;

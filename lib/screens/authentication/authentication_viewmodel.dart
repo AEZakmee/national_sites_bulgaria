@@ -16,7 +16,7 @@ final RegExp regExpPassword = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
 
 class AuthVM extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FireStoreService _fireStoreService = locator<FireStoreService>();
+  final FirestoreService _fireStoreService = locator<FirestoreService>();
   final _dataRepo = locator<DataRepo>();
 
   AuthVM() {

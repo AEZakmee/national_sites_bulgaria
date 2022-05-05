@@ -7,15 +7,15 @@ import 'package:flutter_blurhash/flutter_blurhash.dart';
 class CustomCachedImage extends StatelessWidget {
   const CustomCachedImage({
     required this.url,
-    required this.hash,
     Key? key,
+    this.hash,
     this.borderRadius,
     this.shadow,
     this.shape = BoxShape.rectangle,
   }) : super(key: key);
 
   final String url;
-  final String hash;
+  final String? hash;
   final BorderRadius? borderRadius;
   final List<BoxShadow>? shadow;
   final BoxShape shape;
@@ -34,10 +34,11 @@ class CustomCachedImage extends StatelessWidget {
             ),
           ),
         ),
-        placeholder: (context, url) => BlurHash(hash: hash),
+        placeholder: (context, url) =>
+            hash != null ? BlurHash(hash: hash!) : const SizedBox.shrink(),
         errorWidget: (context, url, error) {
           log(error.toString());
-          return BlurHash(hash: hash);
+          return hash != null ? BlurHash(hash: hash!) : const SizedBox.shrink();
         },
       );
 }

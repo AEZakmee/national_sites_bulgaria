@@ -9,7 +9,7 @@ import 'models/app_user.dart';
 import 'models/site.dart';
 
 class DataRepo extends ChangeNotifier {
-  final FireStoreService _fireStoreService = locator<FireStoreService>();
+  final FirestoreService _fireStoreService = locator<FirestoreService>();
 
   late AppUser user;
   late List<Site> sites;

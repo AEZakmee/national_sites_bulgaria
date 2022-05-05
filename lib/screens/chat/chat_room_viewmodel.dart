@@ -7,7 +7,7 @@ import '../../data/sites_repo.dart';
 import '../../services/firestore_service.dart';
 
 class ChatRoomVM extends ChangeNotifier {
-  final _fireStoreService = locator<FireStoreService>();
+  final _fireStoreService = locator<FirestoreService>();
   final _dataRepo = locator<DataRepo>();
 
   final TextEditingController controller = TextEditingController();
@@ -33,6 +33,7 @@ class ChatRoomVM extends ChangeNotifier {
       userName: _dataRepo.user.username,
       message: controller.text,
       sendTime: DateTime.now(),
+      userPhoto: _dataRepo.user.picture,
     );
     controller.clear();
     await _fireStoreService.sendMessage(message, room.siteId);

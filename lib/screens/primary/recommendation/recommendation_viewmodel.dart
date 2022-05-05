@@ -12,7 +12,7 @@ import '../../../services/firestore_service.dart';
 
 class RecommendationVM extends ChangeNotifier {
   final _dataRepo = locator<DataRepo>();
-  final _fireStoreService = locator<FireStoreService>();
+  final _fireStoreService = locator<FirestoreService>();
 
   final textController = TextEditingController();
   String textFilter = '';

@@ -1,13 +1,18 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../data/models/app_user.dart';
 import '../data/models/chat_room.dart';
 import '../data/models/message.dart';
 import '../data/models/site.dart';
 
-class FireStoreService {
+class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final _storage = FirebaseStorage.instance;
   final _auth = FirebaseAuth.instance;
 
   String? get _userId => _auth.currentUser?.uid;
@@ -30,6 +35,10 @@ class FireStoreService {
 
   Future<void> updateUserVotes(List<SiteVote> votes) async {
     await _db.collection('users').doc(_userId).update({'votes': votes});
+  }
+
+  Future<void> updateUserPhoto(String photoName) async {
+    await _db.collection('users').doc(_userId).update({'picture': photoName});
   }
 
   Future<void> updateUserFavourites(List<String> favorites) async {
@@ -131,4 +140,13 @@ class FireStoreService {
       .snapshots()
       .map((query) => query.docs)
       .map((doc) => doc.map((e) => ChatMessage.fromJson(e.data())).toList());
+
+  Future<String> uploadImage(Uint8List imageBytes) async {
+    final storageReference = _storage.ref('profile_pics/$_userId.jpg');
+    await storageReference.putData(
+      imageBytes,
+      SettableMetadata(contentType: 'image/jpeg'),
+    );
+    return await storageReference.getDownloadURL();
+  }
 }

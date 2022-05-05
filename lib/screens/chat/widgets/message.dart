@@ -3,6 +3,7 @@ import 'package:timeago/timeago.dart';
 
 import '../../../../data/models/message.dart';
 import '../../../utilitiies/extensions.dart';
+import '../../../widgets/cached_image.dart';
 
 class MessageBox extends StatelessWidget {
   const MessageBox({
@@ -139,6 +140,22 @@ class _SendByAnotherUser extends StatelessWidget {
   final bool first;
   final bool last;
 
+  Widget imageDialog(context) => Dialog(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.7,
+              height: MediaQuery.of(context).size.width * 0.7,
+              child: CustomCachedImage(
+                url: message.userPhoto!,
+              ),
+            ),
+          ],
+        ),
+      );
+
   @override
   Widget build(BuildContext context) => Padding(
         padding: EdgeInsets.only(
@@ -171,17 +188,29 @@ class _SendByAnotherUser extends StatelessWidget {
                     width: 40,
                     height: 40,
                     child: first
-                        ? DecoratedBox(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Theme.of(context).splashColor,
-                            ),
-                            child: Center(
-                              child: Text(
-                                message.userName.parsePersonTwoCharactersName(),
-                              ),
-                            ),
-                          )
+                        ? message.userPhoto != null
+                            ? GestureDetector(
+                                onTap: () => showDialog(
+                                  context: context,
+                                  builder: (_) => imageDialog(context),
+                                ),
+                                child: CustomCachedImage(
+                                  url: message.userPhoto!,
+                                  shape: BoxShape.circle,
+                                ),
+                              )
+                            : DecoratedBox(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Theme.of(context).splashColor,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    message.userName
+                                        .parsePersonTwoCharactersName(),
+                                  ),
+                                ),
+                              )
                         : null,
                   ),
                 ),
