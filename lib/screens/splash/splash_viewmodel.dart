@@ -11,7 +11,7 @@ class SplashVM extends ChangeNotifier {
   bool userIsLogged = false;
 
   Future checkUser(BuildContext context) async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1, milliseconds: 500));
     if (_auth.currentUser != null) {
       await _dataRepo.init();
       return Navigator.of(context).pushReplacementNamed(Routes.primary);

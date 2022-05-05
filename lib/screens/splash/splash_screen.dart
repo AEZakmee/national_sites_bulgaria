@@ -34,7 +34,7 @@ class _SplashScreenAnimationState extends State<SplashScreenAnimation>
     context.read<SplashVM>().checkUser(context);
     _animController = AnimationController(vsync: this);
     _animController.addListener(() {
-      if (_animController.value > 0.5) {
+      if (_animController.value > 0.2) {
         _animController.stop();
       }
     });
