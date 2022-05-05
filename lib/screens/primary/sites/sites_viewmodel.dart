@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../app/locator.dart';
 import '../../../data/models/site.dart';
@@ -51,15 +52,15 @@ class SitesVM extends ChangeNotifier {
   String getSortTranslation(SortType type, BuildContext context) {
     switch (type) {
       case SortType.rating:
-        return 'Rating';
+        return AppLocalizations.of(context)!.rating;
       case SortType.maxRating:
-        return 'Popularity';
+        return AppLocalizations.of(context)!.popularity;
       case SortType.number:
-        return 'Site number';
+        return AppLocalizations.of(context)!.siteNumber;
       case SortType.favorites:
-        return 'Favorites';
+        return AppLocalizations.of(context)!.favorites;
       case SortType.town:
-        return 'Place';
+        return AppLocalizations.of(context)!.town;
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TitleSeeAll extends StatelessWidget {
   const TitleSeeAll({
@@ -23,7 +24,7 @@ class TitleSeeAll extends StatelessWidget {
             GestureDetector(
               onTap: onTap,
               child: Text(
-                'See all',
+                AppLocalizations.of(context)!.seeAll,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),

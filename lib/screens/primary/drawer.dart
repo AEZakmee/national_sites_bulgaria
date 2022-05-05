@@ -211,14 +211,14 @@ class _MainDrawerBody extends StatelessWidget {
       children: [
         ListTile(
           leading: const Icon(Icons.language),
-          title: Text('Change language'),
+          title: Text(AppLocalizations.of(context)!.changeLanguage),
           onTap: () => context.read<DrawerVM>().switchState(
                 DrawerState.language,
               ),
         ),
         ListTile(
           leading: const Icon(Icons.dark_mode),
-          title: Text('Dark theme'),
+          title: Text(AppLocalizations.of(context)!.darkTheme),
           onTap: () => context.read<ThemeProvider>().switchTheme(),
           trailing: SizedBox(
             height: 28,
@@ -237,7 +237,7 @@ class _MainDrawerBody extends StatelessWidget {
         ),
         ListTile(
           leading: const Icon(Icons.color_lens),
-          title: Text('Color Scheme'),
+          title: Text(AppLocalizations.of(context)!.colorScheme),
           onTap: () => context.read<DrawerVM>().switchState(
                 DrawerState.scheme,
               ),
@@ -245,7 +245,7 @@ class _MainDrawerBody extends StatelessWidget {
         const Divider(),
         ListTile(
           leading: const Icon(Icons.exit_to_app),
-          title: Text('Sign out'),
+          title: Text(AppLocalizations.of(context)!.signOut),
           onTap: () => context.read<PrimaryVM>().signOut(context),
         ),
       ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../../app/router.dart';
@@ -103,12 +104,12 @@ class _TopImagePageView extends StatelessWidget {
         controller: viewModel.imageViewController,
         children: [
           ...List.generate(
-            viewModel.sites.length,
+            viewModel.displaySites.length.clamp(0, 10),
             (index) => GestureDetector(
               onTap: () => Navigator.of(context).pushNamed(
                 Routes.info,
                 arguments: InfoScreenArguments(
-                  viewModel.sites[index].uid,
+                  viewModel.displaySites[index].uid,
                 ),
               ),
               child: Stack(
@@ -117,8 +118,8 @@ class _TopImagePageView extends StatelessWidget {
                     height: topImageHeight,
                     width: double.infinity,
                     child: CustomCachedImage(
-                      url: viewModel.sites[index].image.url,
-                      hash: viewModel.sites[index].image.hash,
+                      url: viewModel.displaySites[index].image.url,
+                      hash: viewModel.displaySites[index].image.hash,
                     ),
                   ),
                   Container(
@@ -163,7 +164,7 @@ class _SearchField extends StatelessWidget {
             enabledBorder: kTextFieldBorder(),
             focusedBorder: kTextFieldBorder(),
             border: kTextFieldBorder(),
-            hintText: 'Search sites',
+            hintText: AppLocalizations.of(context)!.searchSites,
             fillColor: Theme.of(context).backgroundColor,
             suffixIcon: Icon(
               Icons.search,
@@ -192,7 +193,7 @@ class _SitesColumn extends StatelessWidget {
     return Column(
       children: [
         TitleSeeAll(
-          text: 'National sites',
+          text: AppLocalizations.of(context)!.sites,
           onTap: () => context.read<PrimaryVM>().changePageNotifier(1),
         ),
         const SizedBox(height: 10),
@@ -257,21 +258,22 @@ class _FavouritesRow extends StatelessWidget {
     if (viewModel.favouriteSites.isEmpty) {
       return const SizedBox.shrink();
     }
+    final sites = viewModel.favouriteSites.take(5).toList();
     return Column(
       children: [
-        const TitleSeeAll(
-          text: 'Favourite sites',
+        TitleSeeAll(
+          text: AppLocalizations.of(context)!.favSites,
           hasSeeAllButton: false,
         ),
         const SizedBox(height: 10),
         StaggeredRow(
-          count: viewModel.favouriteSites.length,
+          count: sites.length,
           children: List.generate(
-            viewModel.favouriteSites.length,
+            sites.length,
             (index) => Padding(
               padding: const EdgeInsets.only(right: 10),
               child: SiteCard(
-                site: viewModel.favouriteSites[index],
+                site: sites[index],
               ),
             ),
           ),
@@ -293,7 +295,7 @@ class _ActiveChats extends StatelessWidget {
     return Column(
       children: [
         TitleSeeAll(
-          text: 'Active chat rooms',
+          text: AppLocalizations.of(context)!.activeRooms,
           onTap: () => context.read<PrimaryVM>().changePageNotifier(2),
         ),
         const SizedBox(height: 10),

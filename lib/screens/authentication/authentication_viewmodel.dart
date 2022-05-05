@@ -12,7 +12,6 @@ import '../../services/firestore_service.dart';
 
 final RegExp regExpEmail = RegExp(
     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
-final RegExp regExpPassword = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
 
 class AuthVM extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -73,7 +72,7 @@ class AuthVM extends ChangeNotifier {
         break;
       case DataField.password:
         _password.data = data.trim();
-        if (regExpPassword.hasMatch(data.trim())) {
+        if (data.trim().length >= 8) {
           _password.error = false;
         } else {
           _password.error = true;
@@ -100,11 +99,7 @@ class AuthVM extends ChangeNotifier {
         break;
       case DataField.password:
         if (_password.error) {
-          if (_password.data.length >= 8) {
-            return AppLocalizations.of(context)!.passwordMustContain;
-          } else {
-            return AppLocalizations.of(context)!.passwordMustLong;
-          }
+          return AppLocalizations.of(context)!.passwordMustLong;
         }
         break;
       case DataField.username:

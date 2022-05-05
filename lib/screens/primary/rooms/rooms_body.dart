@@ -99,7 +99,12 @@ class _RoomsListView extends StatelessWidget {
                                       children: [
                                         const Spacer(),
                                         Text(
-                                          format(rooms[index].lastMessageTime),
+                                          format(
+                                            rooms[index].lastMessageTime,
+                                            locale:
+                                                Localizations.localeOf(context)
+                                                    .languageCode,
+                                          ),
                                           overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme

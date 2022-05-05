@@ -1,7 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
 
@@ -17,9 +17,9 @@ import 'recommendation/recomendation_body.dart';
 import 'rooms/rooms_body.dart';
 import 'sites/sites_body.dart';
 
-part 'drawer.dart';
 part 'app_bar.dart';
 part 'bottom_nav.dart';
+part 'drawer.dart';
 
 class PrimaryScreen extends StatelessWidget {
   const PrimaryScreen({Key? key}) : super(key: key);

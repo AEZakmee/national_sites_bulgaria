@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -78,6 +79,9 @@ class RatingsRow extends StatelessWidget {
         builder: (context, viewModel, _) => Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(
+              width: 10,
+            ),
             const Expanded(
               child: _VoteStar(),
             ),
@@ -100,7 +104,9 @@ class RatingsRow extends StatelessWidget {
                     ),
                     FittedBox(
                       child: Text(
-                        viewModel.isFavourite ? 'Remove' : 'Add',
+                        viewModel.isFavourite
+                            ? AppLocalizations.of(context)!.remove
+                            : AppLocalizations.of(context)!.add,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
@@ -123,7 +129,7 @@ class RatingsRow extends StatelessWidget {
                     ),
                     FittedBox(
                       child: Text(
-                        'Chat',
+                        AppLocalizations.of(context)!.chat,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
@@ -146,13 +152,16 @@ class RatingsRow extends StatelessWidget {
                     ),
                     FittedBox(
                       child: Text(
-                        'Navigation',
+                        AppLocalizations.of(context)!.navigation,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
                   ],
                 ),
               ),
+            ),
+            const SizedBox(
+              width: 5,
             ),
           ],
         ),
@@ -188,12 +197,13 @@ class _VoteStarState extends State<_VoteStar> {
             child: Text(
               viewModel.rating != 0
                   ? '${viewModel.rating.toStringAsFixed(1)}/5'
-                  : 'No votes',
+                  : AppLocalizations.of(context)!.noVotes,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
           if (viewModel.site.rating.count != 0)
-            Text('${viewModel.site.rating.count} votes')
+            Text(
+                '${viewModel.site.rating.count} ${AppLocalizations.of(context)!.votes}')
         ],
       ),
     );
@@ -245,7 +255,9 @@ class _VoteStarState extends State<_VoteStar> {
                         viewModel.voteSite();
                         Navigator.of(context).pop();
                       },
-                      child: const Text('Vote'),
+                      child: Text(
+                        AppLocalizations.of(context)!.vote,
+                      ),
                     ),
                   ),
                 ),

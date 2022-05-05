@@ -16,6 +16,9 @@ class RecommendationVM extends ChangeNotifier {
 
   final textController = TextEditingController();
   String textFilter = '';
+
+  List<Site> displaySites = [];
+
   void updateFilter() {
     textFilter = textController.text;
     EasyDebounce.debounce(
@@ -82,6 +85,9 @@ class RecommendationVM extends ChangeNotifier {
 
   Future<void> init() async {
     startTimer();
+    displaySites
+      ..addAll(_dataRepo.sites)
+      ..shuffle();
     _dataRepo.addListener(notifyListeners);
   }
 
