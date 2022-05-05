@@ -5,7 +5,7 @@ part 'site.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Site {
   Coordinates coordinates;
-  Image image;
+  List<Image> images;
   Info info;
   Rating rating;
   String siteNumber;
@@ -13,7 +13,7 @@ class Site {
 
   Site(
     this.coordinates,
-    this.image,
+    this.images,
     this.info,
     this.rating,
     this.siteNumber,

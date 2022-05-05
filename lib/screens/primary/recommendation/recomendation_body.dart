@@ -118,8 +118,8 @@ class _TopImagePageView extends StatelessWidget {
                     height: topImageHeight,
                     width: double.infinity,
                     child: CustomCachedImage(
-                      url: viewModel.displaySites[index].image.url,
-                      hash: viewModel.displaySites[index].image.hash,
+                      url: viewModel.displaySites[index].images[0].url,
+                      hash: viewModel.displaySites[index].images[0].hash,
                     ),
                   ),
                   Container(

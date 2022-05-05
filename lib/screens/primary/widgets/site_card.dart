@@ -41,8 +41,8 @@ class SiteCard extends StatelessWidget {
               AspectRatio(
                 aspectRatio: 16 / 10,
                 child: CustomCachedImage(
-                  url: site.image.url,
-                  hash: site.image.hash,
+                  url: site.images[0].url,
+                  hash: site.images[0].hash,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
@@ -101,8 +101,8 @@ class SiteCardWhole extends StatelessWidget {
               AspectRatio(
                 aspectRatio: 16 / 10,
                 child: CustomCachedImage(
-                  url: site.image.url,
-                  hash: site.image.hash,
+                  url: site.images[0].url,
+                  hash: site.images[0].hash,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     bottomLeft: Radius.circular(10),

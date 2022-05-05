@@ -8,7 +8,9 @@ part of 'site.dart';
 
 Site _$SiteFromJson(Map<String, dynamic> json) => Site(
       Coordinates.fromJson(json['coordinates'] as Map<String, dynamic>),
-      Image.fromJson(json['image'] as Map<String, dynamic>),
+      (json['images'] as List<dynamic>)
+          .map((e) => Image.fromJson(e as Map<String, dynamic>))
+          .toList(),
       Info.fromJson(json['info'] as Map<String, dynamic>),
       Rating.fromJson(json['rating'] as Map<String, dynamic>),
       json['siteNumber'] as String,
@@ -17,7 +19,7 @@ Site _$SiteFromJson(Map<String, dynamic> json) => Site(
 
 Map<String, dynamic> _$SiteToJson(Site instance) => <String, dynamic>{
       'coordinates': instance.coordinates.toJson(),
-      'image': instance.image.toJson(),
+      'images': instance.images.map((e) => e.toJson()).toList(),
       'info': instance.info.toJson(),
       'rating': instance.rating.toJson(),
       'siteNumber': instance.siteNumber,

@@ -92,8 +92,8 @@ class InfoVM extends ChangeNotifier {
       await _fireStoreService.createRoom(ChatRoom(
         siteId: site.uid,
         roomName: site.info.name,
-        roomImage: site.image.url,
-        imageHash: site.image.hash,
+        roomImage: site.images[0].url,
+        imageHash: site.images[0].hash,
         lastMessage: '',
         lastMessageTime: DateTime.now(),
       ));
