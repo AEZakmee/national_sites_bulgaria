@@ -1,0 +1,271 @@
+import 'package:flutter/material.dart';
+import 'package:timeago/timeago.dart';
+
+import '../../../../data/models/message.dart';
+import '../../../utilitiies/extensions.dart';
+import '../../../widgets/cached_image.dart';
+
+class MessageBox extends StatelessWidget {
+  const MessageBox({
+    required this.message,
+    required this.sendByUser,
+    required this.first,
+    required this.last,
+    required this.overOneHour,
+    Key? key,
+  }) : super(key: key);
+  final ChatMessage message;
+  final bool sendByUser;
+  final bool first;
+  final bool last;
+  final bool overOneHour;
+
+  @override
+  Widget build(BuildContext context) => Column(
+        children: [
+          if (overOneHour && last)
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                format(
+                  message.sendTime,
+                  locale: Localizations.localeOf(context).languageCode,
+                ),
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ),
+          Builder(builder: (context) {
+            if (sendByUser) {
+              return GestureDetector(
+                //todo: add delete
+                onLongPress: () {},
+                child: _SendByCurrentUser(
+                  message: message,
+                  first: first,
+                  last: last,
+                ),
+              );
+            }
+            return _SendByAnotherUser(
+              message: message,
+              first: first,
+              last: last,
+            );
+          }),
+        ],
+      );
+}
+
+class _SendByCurrentUser extends StatelessWidget {
+  const _SendByCurrentUser({
+    required this.message,
+    required this.first,
+    required this.last,
+    Key? key,
+  }) : super(key: key);
+  final ChatMessage message;
+  final bool first;
+  final bool last;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: EdgeInsets.only(
+          right: 2,
+          top: 2,
+          bottom: first ? 10 : 2,
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                const Spacer(),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.8,
+                  ),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor.withOpacity(0.75),
+                      borderRadius: BorderRadius.only(
+                        topLeft: const Radius.circular(15),
+                        bottomLeft: const Radius.circular(15),
+                        topRight:
+                            last ? const Radius.circular(15) : Radius.zero,
+                        bottomRight:
+                            first ? const Radius.circular(15) : Radius.zero,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        message.message,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            if (first)
+              Padding(
+                padding: const EdgeInsets.only(top: 2, right: 10),
+                child: Row(
+                  children: [
+                    const Spacer(),
+                    Text(
+                      format(
+                        message.sendTime,
+                        locale: Localizations.localeOf(context).languageCode,
+                      ),
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+              )
+          ],
+        ),
+      );
+}
+
+class _SendByAnotherUser extends StatelessWidget {
+  const _SendByAnotherUser({
+    required this.message,
+    required this.first,
+    required this.last,
+    Key? key,
+  }) : super(key: key);
+  final ChatMessage message;
+  final bool first;
+  final bool last;
+
+  Widget imageDialog(context) => Dialog(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.7,
+              height: MediaQuery.of(context).size.width * 0.7,
+              child: CustomCachedImage(
+                url: message.userPhoto!,
+              ),
+            ),
+          ],
+        ),
+      );
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: EdgeInsets.only(
+          left: 2,
+          top: 2,
+          bottom: first ? 10 : 2,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (last)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 2, left: 50),
+                child: Row(
+                  children: [
+                    Text(
+                      message.userName,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+              ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 2, right: 8),
+                  child: SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: first
+                        ? message.userPhoto != null
+                            ? GestureDetector(
+                                onTap: () => showDialog(
+                                  context: context,
+                                  builder: (_) => imageDialog(context),
+                                ),
+                                child: CustomCachedImage(
+                                  url: message.userPhoto!,
+                                  shape: BoxShape.circle,
+                                ),
+                              )
+                            : DecoratedBox(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Theme.of(context).splashColor,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    message.userName
+                                        .parsePersonTwoCharactersName(),
+                                  ),
+                                ),
+                              )
+                        : null,
+                  ),
+                ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.7,
+                  ),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .secondaryHeaderColor
+                          .withOpacity(0.5),
+                      borderRadius: BorderRadius.only(
+                        topLeft: last ? const Radius.circular(15) : Radius.zero,
+                        bottomLeft:
+                            first ? const Radius.circular(15) : Radius.zero,
+                        topRight: const Radius.circular(15),
+                        bottomRight: const Radius.circular(15),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        message.message,
+                        maxLines: 100,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : Colors.white,
+                            ),
+                      ),
+                    ),
+                  ),
+                ),
+                const Spacer(),
+              ],
+            ),
+            if (first)
+              Padding(
+                padding: const EdgeInsets.only(top: 2, left: 50),
+                child: Row(
+                  children: [
+                    Text(
+                      format(
+                        message.sendTime,
+                        locale: Localizations.localeOf(context).languageCode,
+                      ),
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+              )
+          ],
+        ),
+      );
+}

@@ -16,6 +16,12 @@
 	<string>national_sites_bulgaria</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>NSCameraUsageDescription</key>
+    <string>Some Description</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Some Description</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Some Description</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
