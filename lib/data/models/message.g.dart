@@ -8,17 +8,15 @@ part of 'message.dart';
 
 ChatMessage _$ChatMessageFromJson(Map<String, dynamic> json) => ChatMessage(
       userId: json['userId'] as String,
-      userName: json['userName'] as String,
+      userReference: firebaseDocRefFromJson(json['userReference']),
       message: json['message'] as String,
       sendTime: DateTime.parse(json['sendTime'] as String),
-      userPhoto: json['userPhoto'] as String?,
     );
 
 Map<String, dynamic> _$ChatMessageToJson(ChatMessage instance) =>
     <String, dynamic>{
       'userId': instance.userId,
-      'userName': instance.userName,
+      'userReference': firebaseDocRefToJson(instance.userReference),
       'message': instance.message,
       'sendTime': instance.sendTime.toIso8601String(),
-      'userPhoto': instance.userPhoto,
     };

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart';
 
 import '../../../../data/models/message.dart';
+import '../../../data/models/app_user.dart';
 import '../../../utilitiies/extensions.dart';
 import '../../../widgets/cached_image.dart';
+import '../chat_room_viewmodel.dart';
 
 class MessageBox extends StatelessWidget {
   const MessageBox({
@@ -140,19 +143,28 @@ class _SendByAnotherUser extends StatelessWidget {
   final bool first;
   final bool last;
 
-  Widget imageDialog(context) => Dialog(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.7,
-              height: MediaQuery.of(context).size.width * 0.7,
-              child: CustomCachedImage(
-                url: message.userPhoto!,
+  Widget imageDialog(context, AppUser user) => Dialog(
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.7,
+          height: MediaQuery.of(context).size.width * 0.7,
+          color: Theme.of(context).backgroundColor,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.6,
+                height: MediaQuery.of(context).size.width * 0.6,
+                child: CustomCachedImage(
+                  borderRadius: BorderRadius.circular(15),
+                  url: user.picture!,
+                ),
               ),
-            ),
-          ],
+              Text(
+                user.username,
+              ),
+            ],
+          ),
         ),
       );
 
@@ -172,7 +184,7 @@ class _SendByAnotherUser extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      message.userName,
+                      '',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     const Spacer(),
@@ -187,31 +199,49 @@ class _SendByAnotherUser extends StatelessWidget {
                   child: SizedBox(
                     width: 40,
                     height: 40,
-                    child: first
-                        ? message.userPhoto != null
-                            ? GestureDetector(
-                                onTap: () => showDialog(
-                                  context: context,
-                                  builder: (_) => imageDialog(context),
-                                ),
-                                child: CustomCachedImage(
-                                  url: message.userPhoto!,
-                                  shape: BoxShape.circle,
-                                ),
-                              )
-                            : DecoratedBox(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Theme.of(context).splashColor,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    message.userName
-                                        .parsePersonTwoCharactersName(),
-                                  ),
-                                ),
-                              )
-                        : null,
+                    child: FutureBuilder<AppUser>(
+                      future: context.read<ChatRoomVM>().getUserData(
+                            message.userReference,
+                            message.userId,
+                          ),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return const SizedBox.shrink();
+                        }
+                        final data = snapshot.data;
+                        if (data == null) {
+                          return const SizedBox.shrink();
+                        }
+                        return first
+                            ? data.picture != null
+                                ? GestureDetector(
+                                    onTap: () => showDialog(
+                                      context: context,
+                                      builder: (_) => imageDialog(
+                                        context,
+                                        data,
+                                      ),
+                                    ),
+                                    child: CustomCachedImage(
+                                      url: data.picture!,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  )
+                                : DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Theme.of(context).splashColor,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        data.picture!
+                                            .parsePersonTwoCharactersName(),
+                                      ),
+                                    ),
+                                  )
+                            : const SizedBox.shrink();
+                      },
+                    ),
                   ),
                 ),
                 ConstrainedBox(

@@ -1,21 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../utilitiies/firestore_json.dart';
 
 part 'message.g.dart';
 
 @JsonSerializable()
 class ChatMessage {
   String userId;
-  String userName;
+  @JsonKey(fromJson: firebaseDocRefFromJson, toJson: firebaseDocRefToJson)
+  DocumentReference<Map<String, dynamic>> userReference;
   String message;
   DateTime sendTime;
-  String? userPhoto;
 
   ChatMessage({
     required this.userId,
-    required this.userName,
+    required this.userReference,
     required this.message,
     required this.sendTime,
-    required this.userPhoto,
   });
 
   factory ChatMessage.fromJson(Map<String, dynamic> json) =>

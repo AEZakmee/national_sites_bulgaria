@@ -10,6 +10,7 @@ class AppUser {
   String? picture;
   List<String> favouriteSites;
   List<SiteVote> votes;
+  DateTime joined;
 
   AppUser({
     required this.uniqueID,
@@ -17,6 +18,7 @@ class AppUser {
     required this.username,
     required this.favouriteSites,
     required this.votes,
+    this.joined,
     this.picture,
   });
 

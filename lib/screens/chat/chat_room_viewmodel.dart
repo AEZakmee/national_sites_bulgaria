@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../app/locator.dart';
+import '../../data/models/app_user.dart';
 import '../../data/models/chat_room.dart';
 import '../../data/models/message.dart';
 import '../../data/sites_repo.dart';
@@ -11,6 +13,8 @@ class ChatRoomVM extends ChangeNotifier {
   final _dataRepo = locator<DataRepo>();
 
   final TextEditingController controller = TextEditingController();
+
+  Map<String, AppUser> chatUsers = {};
 
   ChatRoom room;
 
@@ -30,12 +34,28 @@ class ChatRoomVM extends ChangeNotifier {
     }
     final message = ChatMessage(
       userId: _dataRepo.user.uniqueID,
-      userName: _dataRepo.user.username,
+      userReference: FirebaseFirestore.instance.doc(
+        'users/${_dataRepo.user.uniqueID}',
+      ),
       message: controller.text,
       sendTime: DateTime.now(),
-      userPhoto: _dataRepo.user.picture,
     );
     controller.clear();
     await _fireStoreService.sendMessage(message, room.siteId);
+  }
+
+  Future<AppUser> getUserData(
+    DocumentReference<Map<String, dynamic>> ref,
+    String userId,
+  ) async {
+    AppUser? user = chatUsers[userId];
+    if (user != null) {
+      return user;
+    }
+    user = await ref.get().then(
+          (value) => AppUser.fromJson(value.data()!),
+        );
+    chatUsers[user!.uniqueID] = user;
+    return user;
   }
 }

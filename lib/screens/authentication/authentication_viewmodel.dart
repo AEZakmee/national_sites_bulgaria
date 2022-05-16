@@ -213,6 +213,7 @@ class AuthVM extends ChangeNotifier {
           username: _username.data,
           favouriteSites: [],
           votes: [],
+          joined: DateTime.now(),
         );
 
         await _fireStoreService.addUser(user);
