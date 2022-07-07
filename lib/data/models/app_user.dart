@@ -4,6 +4,7 @@ part 'app_user.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class AppUser {
+  bool admin;
   String uniqueID;
   String email;
   String username;
@@ -17,6 +18,7 @@ class AppUser {
     required this.username,
     required this.favouriteSites,
     required this.votes,
+    this.admin = false,
     this.picture,
   });
 

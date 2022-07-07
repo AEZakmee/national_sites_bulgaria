@@ -16,10 +16,12 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) => AppUser(
       votes: (json['votes'] as List<dynamic>)
           .map((e) => SiteVote.fromJson(e as Map<String, dynamic>))
           .toList(),
+      admin: json['admin'] as bool? ?? false,
       picture: json['picture'] as String?,
     );
 
 Map<String, dynamic> _$AppUserToJson(AppUser instance) => <String, dynamic>{
+      'admin': instance.admin,
       'uniqueID': instance.uniqueID,
       'email': instance.email,
       'username': instance.username,
