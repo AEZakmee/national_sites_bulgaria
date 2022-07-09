@@ -234,7 +234,7 @@ class _SendByAnotherUser extends StatelessWidget {
                                     ),
                                     child: Center(
                                       child: Text(
-                                        data.picture!
+                                        data.username
                                             .parsePersonTwoCharactersName(),
                                       ),
                                     ),
