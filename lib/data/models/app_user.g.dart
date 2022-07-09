@@ -16,6 +16,7 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) => AppUser(
       votes: (json['votes'] as List<dynamic>)
           .map((e) => SiteVote.fromJson(e as Map<String, dynamic>))
           .toList(),
+      joined: DateTime.parse(json['joined'] as String),
       admin: json['admin'] as bool? ?? false,
       picture: json['picture'] as String?,
     );
@@ -28,6 +29,7 @@ Map<String, dynamic> _$AppUserToJson(AppUser instance) => <String, dynamic>{
       'picture': instance.picture,
       'favouriteSites': instance.favouriteSites,
       'votes': instance.votes.map((e) => e.toJson()).toList(),
+      'joined': instance.joined.toIso8601String(),
     };
 
 SiteVote _$SiteVoteFromJson(Map<String, dynamic> json) => SiteVote(
