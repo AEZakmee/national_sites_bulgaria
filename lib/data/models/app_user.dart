@@ -18,7 +18,7 @@ class AppUser {
     required this.username,
     required this.favouriteSites,
     required this.votes,
-    this.joined,
+    required this.joined,
     this.picture,
   });
 
