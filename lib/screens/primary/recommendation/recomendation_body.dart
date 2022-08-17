@@ -267,14 +267,17 @@ class _FavouritesRow extends StatelessWidget {
           hasSeeAllButton: false,
         ),
         const SizedBox(height: 10),
-        StaggeredRow(
-          count: sites.length,
-          children: List.generate(
-            sites.length,
-            (index) => Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: SiteCard(
-                site: sites[index],
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: StaggeredRow(
+            count: sites.length,
+            children: List.generate(
+              sites.length,
+              (index) => Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: SiteCard(
+                  site: sites[index],
+                ),
               ),
             ),
           ),

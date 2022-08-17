@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class StaggeredListView extends StatelessWidget {
@@ -7,6 +8,7 @@ class StaggeredListView extends StatelessWidget {
   final ScrollPhysics? physics;
   final ScrollController? controller;
   final bool shrinkWrap;
+  final Axis scrollDirection;
   const StaggeredListView({
     required this.count,
     required this.child,
@@ -14,6 +16,7 @@ class StaggeredListView extends StatelessWidget {
     this.physics,
     this.controller,
     this.shrinkWrap = false,
+    this.scrollDirection = Axis.vertical,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) => AnimationLimiter(
@@ -22,6 +25,7 @@ class StaggeredListView extends StatelessWidget {
           physics: physics,
           shrinkWrap: shrinkWrap,
           controller: controller,
+          scrollDirection: scrollDirection,
           padding: EdgeInsets.zero,
           itemBuilder: (BuildContext context, int index) =>
               AnimationConfiguration.staggeredList(
