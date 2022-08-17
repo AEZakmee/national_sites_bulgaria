@@ -9,12 +9,16 @@ import '../../data/sites_repo.dart';
 import '../../services/firestore_service.dart';
 
 class InfoVM extends ChangeNotifier {
-  final _fireStoreService = locator<FirestoreService>();
-  final _dataRepo = locator<DataRepo>();
+  final FirestoreService _fireStoreService;
+  final DataRepo _dataRepo;
 
-  final String uid;
+  InfoVM({
+    required fireStoreService,
+    required dataRepo,
+  })  : _fireStoreService = fireStoreService,
+        _dataRepo = dataRepo;
 
-  InfoVM(this.uid);
+  late final String uid;
 
   late Site site;
 
@@ -24,7 +28,8 @@ class InfoVM extends ChangeNotifier {
     userRating = rating.toInt();
   }
 
-  void init() {
+  void init(String uid) {
+    this.uid = uid;
     updateSite();
     loadRating();
     _dataRepo.addListener(updateSite);

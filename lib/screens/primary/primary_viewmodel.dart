@@ -9,8 +9,14 @@ import '../../data/sites_repo.dart';
 GlobalKey<CurvedNavigationBarState> bottomNavKye = GlobalKey();
 
 class PrimaryVM extends ChangeNotifier {
-  final _dataRepo = locator<DataRepo>();
-  final _auth = FirebaseAuth.instance;
+  final DataRepo _dataRepo;
+  final FirebaseAuth _auth;
+
+  PrimaryVM({
+    required auth,
+    required dataRepo,
+  })  : _auth = auth,
+        _dataRepo = dataRepo;
 
   final pageController = PageController();
 

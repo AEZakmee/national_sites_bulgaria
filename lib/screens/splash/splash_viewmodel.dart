@@ -6,9 +6,15 @@ import '../../app/router.dart';
 import '../../data/sites_repo.dart';
 
 class SplashVM extends ChangeNotifier {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final _dataRepo = locator<DataRepo>();
+  final FirebaseAuth _auth;
+  final DataRepo _dataRepo;
   bool userIsLogged = false;
+
+  SplashVM({
+    required auth,
+    required dataRepo,
+  })  : _auth = auth,
+        _dataRepo = dataRepo;
 
   Future checkUser(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 1, milliseconds: 500));

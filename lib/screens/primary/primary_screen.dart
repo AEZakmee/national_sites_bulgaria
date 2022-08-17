@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
 
+import '../../app/locator.dart';
 import '../../providers/localization_provider.dart';
 import '../../providers/theme_provider.dart';
 import '../../utilitiies/extensions.dart';
@@ -26,7 +27,7 @@ class PrimaryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ViewModelBuilder<PrimaryVM>(
-        viewModelBuilder: PrimaryVM.new,
+        viewModelBuilder: locator<PrimaryVM>,
         onModelReady: (viewModel) => viewModel.init(),
         onDispose: (viewModel) => viewModel.onDispose(),
         builder: (context, _) => const Scaffold(

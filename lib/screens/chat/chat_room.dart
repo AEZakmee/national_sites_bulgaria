@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../app/locator.dart';
 import '../../data/models/chat_room.dart';
 import '../../data/models/message.dart';
 import '../../utilitiies/constants.dart';
@@ -22,8 +23,8 @@ class ChatRoomScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ViewModelBuilder<ChatRoomVM>(
-        viewModelBuilder: () => ChatRoomVM(room),
-        onModelReady: (viewModel) => viewModel.init(),
+        viewModelBuilder: locator<ChatRoomVM>,
+        onModelReady: (viewModel) => viewModel.init(room),
         builder: (context, viewModel) => ColoredSafeArea(
           topColor: Theme.of(context).primaryColor,
           bottomColor: Theme.of(context).backgroundColor,

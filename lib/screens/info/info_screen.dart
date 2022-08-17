@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../app/locator.dart';
 import '../../widgets/viewmodel_builder.dart';
 import '../primary/recommendation/recomendation_body.dart';
 import 'info_viewmodel.dart';
@@ -16,9 +17,9 @@ class InfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ViewModelBuilder<InfoVM>(
-        viewModelBuilder: () => InfoVM(uid),
+        viewModelBuilder: locator<InfoVM>,
         onDispose: (viewModel) => viewModel.onDispose(),
-        onModelReady: (viewModel) => viewModel.init(),
+        onModelReady: (viewModel) => viewModel.init(uid),
         builder: (context, viewModel) => const Scaffold(
           extendBodyBehindAppBar: true,
           body: _Body(),

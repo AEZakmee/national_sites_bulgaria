@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../app/locator.dart';
 import '../../../utilitiies/constants.dart';
 import '../../../widgets/staggered_animations.dart';
 import '../../../widgets/viewmodel_builder.dart';
@@ -13,7 +14,7 @@ class SitesBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ViewModelBuilder<SitesVM>(
-        viewModelBuilder: SitesVM.new,
+        viewModelBuilder: locator<SitesVM>,
         builder: (context, _) => const _Body(),
       );
 }

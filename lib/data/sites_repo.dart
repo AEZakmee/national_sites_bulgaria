@@ -9,7 +9,7 @@ import 'models/app_user.dart';
 import 'models/site.dart';
 
 class DataRepo extends ChangeNotifier {
-  final FirestoreService _fireStoreService = locator<FirestoreService>();
+  final FirestoreService _fireStoreService;
 
   late AppUser user;
   late List<Site> sites;
@@ -17,6 +17,8 @@ class DataRepo extends ChangeNotifier {
   late StreamSubscription<AppUser> _userSubscription;
 
   late StreamSubscription<List<Site>> _sitesSubscription;
+
+  DataRepo({required fireStoreService}) : _fireStoreService = fireStoreService;
 
   Future<void> init() async {
     user = await _fireStoreService.fetchUser();

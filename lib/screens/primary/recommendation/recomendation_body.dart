@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
+import '../../../app/locator.dart';
 import '../../../app/router.dart';
 import '../../../data/models/chat_room.dart';
 import '../../../utilitiies/constants.dart';
@@ -23,7 +24,7 @@ class RecommendationBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) => KeyboardDismissOnTap(
         child: ViewModelBuilder<RecommendationVM>(
-          viewModelBuilder: RecommendationVM.new,
+          viewModelBuilder: locator<RecommendationVM>,
           onModelReady: (viewModel) => viewModel.init(),
           onDispose: (viewModel) => viewModel.onDispose(),
           builder: (context, _) => const _Body(),
@@ -201,7 +202,7 @@ class _SitesColumn extends StatelessWidget {
           count: viewModel.sites.length.clamp(0, 5),
           children: [
             ...List.generate(
-              viewModel.sites.length,
+              viewModel.sites.length.clamp(0, 5),
               (index) => Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: SiteCardWhole(

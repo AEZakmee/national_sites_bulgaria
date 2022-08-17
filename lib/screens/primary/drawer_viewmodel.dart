@@ -15,9 +15,18 @@ enum DrawerState {
 }
 
 class DrawerVM extends ChangeNotifier {
-  final _dataRepo = locator<DataRepo>();
-  final _fireStoreService = locator<FirestoreService>();
-  final _imageUploaderService = locator<ImageUploaderService>();
+  final DataRepo _dataRepo;
+  final FirestoreService _fireStoreService;
+  final ImageUploaderService _imageUploaderService;
+
+  DrawerVM({
+    required imageUploaderService,
+    required fireStoreService,
+    required dataRepo,
+  })  : _imageUploaderService = imageUploaderService,
+        _fireStoreService = fireStoreService,
+        _dataRepo = dataRepo;
+
   DrawerState state = DrawerState.main;
 
   AppUser get user => _dataRepo.user;

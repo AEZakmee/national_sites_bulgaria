@@ -11,9 +11,17 @@ import '../data/models/message.dart';
 import '../data/models/site.dart';
 
 class FirestoreService {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
-  final _storage = FirebaseStorage.instance;
-  final _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _db;
+  final FirebaseStorage _storage;
+  final FirebaseAuth _auth;
+
+  FirestoreService({
+    required FirebaseFirestore db,
+    required FirebaseStorage storage,
+    required FirebaseAuth auth,
+  })  : _db = db,
+        _storage = storage,
+        _auth = auth;
 
   String? get _userId => _auth.currentUser?.uid;
 

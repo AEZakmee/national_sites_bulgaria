@@ -14,19 +14,21 @@ final RegExp regExpEmail = RegExp(
     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
 
 class AuthVM extends ChangeNotifier {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirestoreService _fireStoreService = locator<FirestoreService>();
-  final _dataRepo = locator<DataRepo>();
-
-  AuthVM() {
-    _loginType = LoginType.signUp;
-    _username = ValidationItem();
-    _email = ValidationItem();
-    _password = ValidationItem();
-  }
+  final FirebaseAuth _auth;
+  final FirestoreService _fireStoreService;
+  final DataRepo _dataRepo;
 
   //Login type - Either Login or Sign up
   LoginType _loginType = LoginType.signUp;
+
+  AuthVM({
+    required auth,
+    required fireStoreService,
+    required dataRepo,
+  })  : _auth = auth,
+        _fireStoreService = fireStoreService,
+        _dataRepo = dataRepo;
+
   LoginType get loginType => _loginType;
   void toggleLoginType() {
     _hasAuthError = false;
@@ -41,9 +43,9 @@ class AuthVM extends ChangeNotifier {
 
   bool get isSignUp => _loginType == LoginType.signUp;
 
-  late ValidationItem _username;
-  late ValidationItem _email;
-  late ValidationItem _password;
+  final _username = ValidationItem();
+  final _email = ValidationItem();
+  final _password = ValidationItem();
   //SignUpData methods
   bool hasError(DataField dataField) {
     if (_loginType == LoginType.login) return false;

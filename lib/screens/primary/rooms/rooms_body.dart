@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart';
 
+import '../../../app/locator.dart';
 import '../../../data/models/chat_room.dart';
 import '../../../widgets/cached_image.dart';
 import '../../../widgets/viewmodel_builder.dart';
@@ -13,7 +14,7 @@ class RoomsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ViewModelBuilder<RoomsVM>(
-        viewModelBuilder: RoomsVM.new,
+        viewModelBuilder: locator<RoomsVM>,
         builder: (context, _) => Column(
           children: const [
             CustomAppBarContainer(),

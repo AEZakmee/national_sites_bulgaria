@@ -14,7 +14,11 @@ enum SortType {
 }
 
 class SitesVM extends ChangeNotifier {
-  final _dataRepo = locator<DataRepo>();
+  final DataRepo _dataRepo;
+
+  SitesVM({
+    required dataRepo,
+  }) : _dataRepo = dataRepo;
 
   SortType type = SortType.number;
 

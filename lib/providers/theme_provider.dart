@@ -5,7 +5,9 @@ import '../app/locator.dart';
 import '../services/theme_service.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  final themeService = locator<ThemeService>();
+  final ThemeService themeService;
+
+  ThemeProvider({required this.themeService});
 
   bool get isDarkTheme => themeService.brightness == Brightness.dark;
 

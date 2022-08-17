@@ -10,7 +10,7 @@ class _MainDrawer extends StatelessWidget {
     final theme = Theme.of(context);
 
     return ChangeNotifierProvider<DrawerVM>(
-      create: (_) => DrawerVM(),
+      create: (_) => locator<DrawerVM>(),
       child: Builder(
         builder: (context) => Consumer<DrawerVM>(
             builder: (context, viewModel, _) => Drawer(

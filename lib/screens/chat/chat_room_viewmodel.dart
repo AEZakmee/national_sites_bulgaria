@@ -9,21 +9,27 @@ import '../../data/sites_repo.dart';
 import '../../services/firestore_service.dart';
 
 class ChatRoomVM extends ChangeNotifier {
-  final _fireStoreService = locator<FirestoreService>();
-  final _dataRepo = locator<DataRepo>();
+  final FirestoreService _fireStoreService;
+  final DataRepo _dataRepo;
+
+  ChatRoomVM({
+    required fireStoreService,
+    required dataRepo,
+  })  : _fireStoreService = fireStoreService,
+        _dataRepo = dataRepo;
 
   final TextEditingController controller = TextEditingController();
 
   Map<String, AppUser> chatUsers = {};
 
-  ChatRoom room;
-
-  ChatRoomVM(this.room);
+  late ChatRoom room;
 
   Stream<List<ChatMessage>> get messagesStream =>
       _fireStoreService.messagesStream(room.siteId);
 
-  void init() {}
+  void init(ChatRoom room) {
+    this.room = room;
+  }
 
   bool sendByUser(ChatMessage message) =>
       message.userId == _dataRepo.user.uniqueID;

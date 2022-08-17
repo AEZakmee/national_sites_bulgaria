@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
+import '../../app/locator.dart';
 import '../../utilitiies/constants.dart';
 import '../authentication/components/arrow_button.dart';
 import 'splash_viewmodel.dart';
@@ -12,7 +13,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-        create: (_) => SplashVM(),
+        create: (_) => locator<SplashVM>(),
         child: const SplashScreenAnimation(),
       );
 }
