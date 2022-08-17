@@ -160,8 +160,16 @@ class _SendByAnotherUser extends StatelessWidget {
                   url: user.picture!,
                 ),
               ),
-              Text(
-                user.username,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Text(
+                      user.username,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

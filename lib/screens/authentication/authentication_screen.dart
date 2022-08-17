@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../app/locator.dart';
 import 'authentication_viewmodel.dart';
-import 'components/body.dart';
+import 'widgets/body.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   const AuthenticationScreen({Key? key}) : super(key: key);

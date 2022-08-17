@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../app/locator.dart';
 import '../../utilitiies/constants.dart';
-import '../authentication/components/arrow_button.dart';
+import '../authentication/widgets/arrow_button.dart';
 import 'splash_viewmodel.dart';
 
 class SplashScreen extends StatelessWidget {
