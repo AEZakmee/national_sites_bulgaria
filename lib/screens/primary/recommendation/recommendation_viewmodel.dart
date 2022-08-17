@@ -40,7 +40,8 @@ class RecommendationVM extends ChangeNotifier {
 
   List<Site> get filteredSites => _dataRepo.sites
       .where(
-        (element) => element.info.name.contains(textFilter),
+        (element) =>
+            element.info.name.toLowerCase().contains(textFilter.toLowerCase()),
       )
       .toList();
 
