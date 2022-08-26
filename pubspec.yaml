@@ -35,15 +35,16 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   timeago: ^3.2.2
   easy_debounce: ^2.0.2+1
-  file_picker: ^4.4.0
-  image_picker: ^0.8.4+9
-  flutter_image_compress: ^1.1.0
+  file_picker: ^5.0.1
+  image_picker: ^0.8.5+3
+  flutter_image_compress: ^1.1.1
   collection: any
 
-  firebase_core: ^1.15.0
-  firebase_auth: ^3.3.15
-  cloud_firestore: ^3.1.13
-  firebase_storage: ^10.2.14
+  firebase_core: ^1.21.1
+  firebase_auth: ^3.7.0
+  cloud_firestore: ^3.4.6
+  firebase_storage: ^10.3.7
+  firebase_messaging: ^13.0.0
 
 dev_dependencies:
   flutter_test:
