@@ -39,6 +39,7 @@ dependencies:
   image_picker: ^0.8.5+3
   flutter_image_compress: ^1.1.1
   collection: any
+  flutter_linkify: ^5.0.2
 
   firebase_core: ^1.21.1
   firebase_auth: ^3.7.0

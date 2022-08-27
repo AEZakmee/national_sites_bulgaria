@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../data/models/message.dart';
 import '../../../data/models/app_user.dart';
@@ -100,8 +102,14 @@ class _SendByCurrentUser extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
-                      child: Text(
-                        message.message,
+                      child: Linkify(
+                        onOpen: (data) => launchUrlString(data.url),
+                        text: message.message,
+                        linkStyle:
+                            Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: Colors.white,
+                                  decoration: TextDecoration.underline,
+                                ),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: Colors.white,
                             ),
@@ -271,9 +279,15 @@ class _SendByAnotherUser extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
-                      child: Text(
-                        message.message,
+                      child: Linkify(
+                        onOpen: (data) => launchUrlString(data.url),
+                        text: message.message,
                         maxLines: 100,
+                        linkStyle:
+                            Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: Colors.white,
+                                  decoration: TextDecoration.underline,
+                                ),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: Theme.of(context).brightness ==
                                       Brightness.light
