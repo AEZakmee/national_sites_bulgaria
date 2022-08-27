@@ -8,9 +8,8 @@ class ThemeService {
   late FlexScheme flexScheme;
 
   Future<void> init() async {
-    brightness = await getTheme() ??
-        SchedulerBinding.instance?.window.platformBrightness ??
-        Brightness.light;
+    brightness =
+        await getTheme() ?? SchedulerBinding.instance.window.platformBrightness;
     flexScheme = await getScheme() ?? FlexScheme.money;
   }
 
