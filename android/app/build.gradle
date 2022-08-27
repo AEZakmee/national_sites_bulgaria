@@ -46,9 +46,11 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.kris.national_sites_bulgaria"
         minSdkVersion 26
-        targetSdkVersion flutter.targetSdkVersion
+        compileSdkVersion 33
+        targetSdkVersion 32
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     buildTypes {

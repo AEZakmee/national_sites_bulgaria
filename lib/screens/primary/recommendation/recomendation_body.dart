@@ -274,7 +274,10 @@ class _FavouritesRow extends StatelessWidget {
             children: List.generate(
               sites.length,
               (index) => Padding(
-                padding: const EdgeInsets.only(right: 10),
+                padding: const EdgeInsets.only(
+                  right: 10,
+                  bottom: 8,
+                ),
                 child: SiteCard(
                   site: sites[index],
                 ),

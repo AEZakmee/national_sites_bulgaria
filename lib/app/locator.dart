@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 
@@ -18,6 +19,7 @@ import '../screens/splash/splash_viewmodel.dart';
 import '../services/firestore_service.dart';
 import '../services/image_upload_service.dart';
 import '../services/localization_service.dart';
+import '../services/push_notifications_service.dart';
 import '../services/theme_service.dart';
 
 final locator = GetIt.instance;
@@ -27,6 +29,14 @@ void setup() {
     ..registerLazySingleton(() => FirebaseAuth.instance)
     ..registerLazySingleton(() => FirebaseStorage.instance)
     ..registerLazySingleton(() => FirebaseFirestore.instance)
+    ..registerLazySingleton<FirebaseMessaging>(
+      () => FirebaseMessaging.instance,
+    )
+    ..registerLazySingleton<PushNotificationsService>(
+      () => PushNotificationsService(
+        firebaseMessaging: locator<FirebaseMessaging>(),
+      ),
+    )
     ..registerLazySingleton<ThemeService>(ThemeService.new)
     ..registerLazySingleton<LocalizationService>(LocalizationService.new)
     ..registerLazySingleton<ImageUploaderService>(ImageUploaderService.new)
