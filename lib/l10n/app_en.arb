@@ -40,5 +40,8 @@
   "changeLanguage": "Change language",
   "darkTheme": "Dark theme",
   "colorScheme": "Color Scheme",
-  "signOut": "Sign out"
+  "signOut": "Sign out",
+  "send": "Send",
+  "forgotPass": "Forgot password",
+  "resetLinkText" : "Enter your email and we will send you a reset link."
 }

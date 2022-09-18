@@ -21,6 +21,8 @@ class AuthVM extends ChangeNotifier {
   //Login type - Either Login or Sign up
   LoginType _loginType = LoginType.signUp;
 
+  final forgotPassController = TextEditingController();
+
   AuthVM({
     required auth,
     required fireStoreService,
@@ -28,6 +30,11 @@ class AuthVM extends ChangeNotifier {
   })  : _auth = auth,
         _fireStoreService = fireStoreService,
         _dataRepo = dataRepo;
+
+  Future<void> sendResetEmail(BuildContext context) async {
+    Navigator.of(context).pop();
+    await _auth.sendPasswordResetEmail(email: forgotPassController.text);
+  }
 
   LoginType get loginType => _loginType;
   void toggleLoginType() {
@@ -278,6 +285,7 @@ class AuthVM extends ChangeNotifier {
 }
 
 enum LoginType { login, signUp }
+
 enum DataField { email, password, username }
 
 class ValidationItem {

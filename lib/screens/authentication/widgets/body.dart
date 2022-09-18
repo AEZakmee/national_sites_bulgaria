@@ -2,15 +2,17 @@ import 'dart:async';
 
 import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
 
-import '../../../app/router.dart';
 import '../../../providers/theme_provider.dart';
 import '../../../utilitiies/constants.dart';
+import '../../../utilitiies/utils.dart';
 import '../../../widgets/locale_switcher.dart';
 import '../authentication_viewmodel.dart';
 import 'arrow_button.dart';
+import 'forgot_password_bottom_sheet.dart';
 import 'input_fields.dart';
 import 'top_buttons.dart';
 
@@ -102,6 +104,26 @@ class _BodyState extends State<Body> {
                                           ),
                                     ),
                                   ),
+                                Row(
+                                  children: [
+                                    const Spacer(),
+                                    InkWell(
+                                      onTap: () => showCustomBottomSheet(
+                                        context: context,
+                                        child: ForgotPassBottomSheet(
+                                          controller: prov.forgotPassController,
+                                          onTap: () => prov.sendResetEmail(
+                                            context,
+                                          ),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        AppLocalizations.of(context)!
+                                            .forgotPass,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                                 const SizedBox(
                                   height: 55,
                                 ),
